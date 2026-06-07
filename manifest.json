@@ -1,0 +1,9 @@
+{
+  "name": "TSKHORBATÆ",
+  "short_name": "Tskhorbatæ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#080504",
+  "theme_color": "#0b0604",
+  "icons": []
+}
