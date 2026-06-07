@@ -15,3 +15,6 @@
 2. Настройки → вставь Supabase URL и anon public key.
 3. Создай аккаунт / войди.
 4. Работай с одной базой на MacBook и iPhone.
+
+
+FIX: исправлена ошибка Safari `Unexpected keyword 'export'` — секция `export` переименована в `exports`.
