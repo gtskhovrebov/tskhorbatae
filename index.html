@@ -58,6 +58,30 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
 @media(max-width:980px){.level-help,.analysis-grid{grid-template-columns:1fr}}
 
 @media(max-width:980px){.app{display:block}aside{display:none}main{padding:14px}.mobile-menu{display:flex;gap:8px;overflow:auto;margin-bottom:14px;padding-bottom:4px}.navbtn{white-space:nowrap;background:var(--card);border-color:var(--stroke)}.title h2{font-size:28px}.cols6,.cols5,.cols4,.cols3,.cols2,.two,.three{grid-template-columns:1fr}table{display:block;overflow-x:auto}.searchbar{grid-template-columns:1fr auto}.map-board{height:560px}.node{width:185px}}
+
+:root[data-theme="dark"]{
+ --bg:#0A0B0D;
+ --panel:#13161A;
+ --card:#1A1F24;
+ --gold:#C9A86A;
+ --text:#F4F4F4;
+}
+:root[data-theme="light"]{
+ --bg:#F3EFE7;
+ --panel:#FAF7F0;
+ --card:#FFFFFF;
+ --gold:#A27B3A;
+ --text:#1F2328;
+}
+.theme-toggle{display:flex;gap:8px}
+.theme-btn{border-radius:14px;padding:8px 12px;cursor:pointer}
+.brand .logo{
+ background:linear-gradient(135deg,#6f5328,#c9a86a,#7b5a2b);
+ border-radius:50%;
+ box-shadow:0 0 20px rgba(201,168,106,.35);
+}
+.quote-line{font-style:italic;font-family:Georgia,serif}
+
 </style>
 </head>
 <body>
@@ -66,13 +90,8 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
   <div class="logo">Æ</div>
   <h1>TSKHORBATÆ</h1>
   <div class="sub motto">
-    <b>Æвзаг.</b><br>
-    <b>Адæм.</b><br>
-    <b>Паддзахад.</b><br><br>
-    <span class="quote-line">«От знания языка —</span><br>
-    <span class="quote-line indent">к пониманию народа.</span><br><br>
-    <span class="quote-line">От понимания народа —</span><br>
-    <span class="quote-line indent">к пониманию государства.»</span>
+    <span class="quote-line">От знания языка — к пониманию народа.</span><br><br>
+<span class="quote-line">От понимания народа — к пониманию государства.</span>
   </div>
   <div class="side-goal">
     <div class="goal-kicker">Цель</div>
@@ -82,13 +101,23 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
 </div><nav id="nav"></nav></aside>
 <main>
 <div class="mobile-menu" id="mobileNav"></div>
-<div class="topbar"><div class="title"><h2 id="pageTitle">Главная панель</h2><p id="pageSub"></p></div><div class="pill" id="syncPill">Не подключено</div></div>
+<div class="topbar"><div class="theme-toggle"><button class="theme-btn" onclick="setTheme('dark')">🌙</button><button class="theme-btn" onclick="setTheme('light')">☀️</button></div><div class="title"><h2 id="pageTitle">Главная панель</h2><p id="pageSub"></p></div><div class="pill" id="syncPill">Не подключено</div></div>
 <section id="dashboard" class="section active"></section><section id="language" class="section"></section><section id="monitoring" class="section"></section><section id="actors" class="section"></section><section id="map" class="section"></section><section id="analysis" class="section"></section><section id="media" class="section"></section><section id="portfolio" class="section"></section><section id="dataExport" class="section"></section><section id="setup" class="section"></section>
 </main>
 </div>
 <div class="modal" id="modal"><div class="modalbox"><div class="section-title" style="margin-top:0"><h3 id="modalTitle">Добавить</h3><button onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+function setTheme(t){
+ document.documentElement.setAttribute('data-theme',t);
+ localStorage.setItem('tsk_theme',t);
+}
+(function(){
+ const t=localStorage.getItem('tsk_theme')||'dark';
+ document.documentElement.setAttribute('data-theme',t);
+})();
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -210,7 +239,7 @@ function chartBar(id,labels,values,targets){let ctx=document.getElementById(id);
 function chartPie(id,labels,values){let ctx=document.getElementById(id);charts.push(new Chart(ctx,{type:"doughnut",data:{labels,datasets:[{data:values}]},options:{plugins:{legend:{labels:{color:"#fff7ed"}}}}}))}
 function normWord(s){return String(s||"").toLowerCase().replaceAll("æ","ӕ")}function startsWithOsLetter(word,letter){if(letter==="Все")return true;return normWord(word).startsWith(normWord(letter))}function osLetterIndex(word){let w=normWord(word).trim();for(let i=1;i<OS_ALPHABET.length;i++){let l=normWord(OS_ALPHABET[i]).toLowerCase();if(w.startsWith(l))return i}return 999}
 function filteredWords(){let q=normWord(wordFilter).trim();return db.word.filter(w=>(startsWithOsLetter(w.data.word,letterFilter))&&(!q||normWord(w.data.word).includes(q)||normWord(w.data.translation).includes(q))).sort((a,b)=>osLetterIndex(a.data.word)-osLetterIndex(b.data.word)||normWord(a.data.word).localeCompare(normWord(b.data.word),"ru"))}
-function renderLanguage(){let list=filteredWords();language.innerHTML=`<div class="grid cols4">${metric(db.word.length+"/1000","Слова")}${metric(db.word.filter(w=>w.data.status==="Закреплено").length,"Закреплено")}${metric(db.word.filter(w=>w.data.date===todayISO()).length+"/10","Сегодня")}${metric(list.length,"Найдено")}</div><div class="section-title"><h3>Словарь</h3><button class="primary" onclick="openWord()">+ слово</button></div><div class="card"><div class="searchbar"><input id="wordSearch" placeholder="Поиск: осетинское слово или русский перевод" value="${escAttr(wordFilter)}" oninput="wordFilter=this.value;renderLanguage()"><button onclick="wordFilter=wordSearch.value;renderLanguage()">Найти</button><button class="kbd" onclick="insertToSearch('ӕ')">ӕ</button><button class="kbd" onclick="insertToSearch('æ')">æ</button></div><div class="alpha-grid">${OS_ALPHABET.map(l=>`<button class="alpha-btn ${letterFilter===l?'active':''}" onclick="letterFilter='${escAttr(l)}';renderLanguage()">${esc(l)}</button>`).join("")}</div><table><thead><tr><th>Слово</th><th>Перевод</th><th>Пример</th><th>Статус</th><th></th></tr></thead><tbody>${list.map(w=>`<tr><td><b>${esc(w.data.word)}</b></td><td>${esc(w.data.translation)}</td><td>${esc(w.data.example||"")}</td><td>${status(w.data.status||"Изучается","æ")}</td><td><button onclick="openWord('${w.id}')">✎</button><button class="danger" onclick="deleteItem('word','${w.id}')">×</button></td></tr>`).join("")}</tbody></table></div>`}
+function renderLanguage(){let list=filteredWords();language.innerHTML=`<div class="grid cols4">${metric(db.word.length+"/1000","Слова")}${metric(db.word.filter(w=>w.data.status==="Закреплено").length,"Закреплено")}${metric(db.word.filter(w=>w.data.date===todayISO()).length+"/10","Сегодня")}${metric(list.length,"Найдено")}</div><div class="section-title"><h3>Словарь</h3><button class="primary" onclick="openWord()">+ слово</button></div><div class="card"><div class="searchbar"><input id="wordSearch" placeholder="Поиск: осетинское слово или русский перевод" value="${escAttr(wordFilter)}" oninput="wordFilter=this.value;renderLanguage()"><button onclick="wordFilter=wordSearch.value;renderLanguage()">Найти</button><button class="kbd" onclick="insertToSearch('ӕ')">ӕ</button></div><div class="alpha-grid">${OS_ALPHABET.map(l=>`<button class="alpha-btn ${letterFilter===l?'active':''}" onclick="letterFilter='${escAttr(l)}';renderLanguage()">${esc(l)}</button>`).join("")}</div><table><thead><tr><th>Слово</th><th>Перевод</th><th>Пример</th><th>Статус</th><th></th></tr></thead><tbody>${list.map(w=>`<tr><td><b>${esc(w.data.word)}</b></td><td>${esc(w.data.translation)}</td><td>${esc(w.data.example||"")}</td><td>${status(w.data.status||"Изучается","æ")}</td><td><button onclick="openWord('${w.id}')">✎</button><button class="danger" onclick="deleteItem('word','${w.id}')">×</button></td></tr>`).join("")}</tbody></table></div>`}
 function renderMonitoring(){monitoring.innerHTML=`<div class="section-title"><h3>Источники</h3><button class="primary" onclick="openSource()">+ источник</button></div><div class="card"><table><thead><tr><th>Название</th><th>Тип</th><th>Доверие</th><th>Ссылка</th><th></th></tr></thead><tbody>${db.source.map(s=>`<tr><td><b>${esc(s.data.name)}</b><br><span class="label">${esc(s.data.note||"")}</span></td><td>${esc(s.data.type)}</td><td>${status(s.data.trust,"★")}</td><td>${s.data.url?`<a href="${esc(s.data.url)}" target="_blank">открыть</a>`:"—"}</td><td><button onclick="openSource('${s.id}')">✎</button><button class="danger" onclick="deleteItem('source','${s.id}')">×</button></td></tr>`).join("")}</tbody></table></div><div class="section-title"><h3>Новости</h3><button class="primary" onclick="openNews()">+ новость</button></div><div class="grid cols2">${db.news.slice().reverse().map(n=>newsCard(n)).join("")||"<div class='card'><p class='label'>Нет новостей.</p></div>"}</div>`}
 function newsCard(n){let src=db.source.find(s=>s.id===n.data.sourceId),acts=(n.data.actorIds||[]).map(id=>db.actor.find(a=>a.id===id)?.data.name).filter(Boolean).join(", ");return`<div class="card"><div class="label">${n.data.date} • ${esc(n.data.category)} • ${status(n.data.importance||"Средняя","☉")}</div><h3>${esc(n.data.title)}</h3><p>${esc(n.data.fact||"")}</p><p><b>Источник:</b> ${src?esc(src.data.name):"—"} ${n.data.link?`• <a href="${esc(n.data.link)}" target="_blank">ссылка</a>`:""}</p><p><b>Акторы:</b> ${esc(acts)||"—"}</p><div class="evidence"><b>Вывод:</b><br>${esc(n.data.conclusion)||"—"}</div><button onclick="openNews('${n.id}')">✎</button> <button onclick="productFromNews('${n.id}')">Пост</button> <button class="danger" onclick="deleteItem('news','${n.id}')">×</button></div>`}
 
@@ -279,8 +308,17 @@ function autoLayoutSimple(){
   renderMap();
 }
 function renderAnalytics(){renderActors();}
-function actorCard(a){return`<div class="card"><div class="label">${esc(a.data.kind)} • ${esc(a.data.contour)} • ${esc(a.data.sphere)}</div><h3>${esc(a.data.name)}</h3><p>${esc(a.data.role)}</p><p>${status(a.data.status,"♟")} ${status("Влияние "+a.data.influence,"★")}</p><p class="label">${esc(a.data.note||"")}</p><button onclick="openActor('${a.id}')">✎</button> <button onclick="addNodeFromActor('${a.id}')">◎ в карту</button> <button class="danger" onclick="deleteItem('actor','${a.id}')">×</button></div>`}
-function renderMedia(){media.innerHTML=`<div class="section-title"><h3>Медиацентр</h3><div><button onclick="createDigest()">Дайджест</button><button class="primary" onclick="openProduct()">+ продукт</button></div></div><div class="grid cols2">${db.product.slice().reverse().map(p=>productCard(p)).join("")||"<div class='card'><p class='label'>Пока нет продуктов.</p></div>"}</div>`}
+function actorCard(a){let inf=influenceLevel(+a.data.influence||0);return`<div class="card"><div class="label">${esc(a.data.kind)} • ${esc(a.data.contour)} • ${esc(a.data.sphere)}</div><h3>${esc(a.data.name)}</h3><p>${esc(a.data.role)}</p><p><span class="status" style="background:${inf[1]}22;border-color:${inf[1]};color:white">${inf[2]} ${inf[0]}</span> <b>${a.data.influence}/100</b></p><p class="label">${esc(a.data.note||"")}</p><button onclick="openActor('${a.id}')">✎</button> <button onclick="addNodeFromActor('${a.id}')">◎ в карту</button> <button class="danger" onclick="deleteItem('actor','${a.id}')">×</button></div>`}
+
+function influenceLevel(v){
+ if(v>=80) return ["Ключевой","#d9a33c","🟡"];
+ if(v>=60) return ["Высокий","#e6a84d","🟠"];
+ if(v>=40) return ["Средний","#77c87a","🟢"];
+ if(v>=20) return ["Локальный","#84a9ff","🔵"];
+ return ["Низкий","#888","⚪"];
+}
+
+function renderMedia(){media.innerHTML=`<div class="section-title"><h3>Медиацентр</h3><div><button onclick="createDigest()">Дайджест</button><button class="primary" onclick="openProduct()">+ продукт</button><button onclick="generatePublication()">Сгенерировать пост</button></div></div><div class="grid cols2">${db.product.slice().reverse().map(p=>productCard(p)).join("")||"<div class='card'><p class='label'>Пока нет продуктов.</p></div>"}</div>`}
 function productCard(p){return`<div class="card"><div class="label">${p.data.date} • ${esc(p.data.type)} • ${status(p.data.status,"✍")}</div><h3>${esc(p.data.title)}</h3><div class="evidence">${esc(p.data.body)}</div><button onclick="openProduct('${p.id}')">✎</button> <button onclick="copyProduct('${p.id}')">Копировать</button> <button onclick="coverFromProduct('${p.id}')">PNG-обложка</button> <button onclick="publishPortfolio('${p.id}')">В портфолио</button> <button class="danger" onclick="deleteItem('product','${p.id}')">×</button></div>`}
 function renderPortfolio(){portfolio.innerHTML=`<div class="section-title"><h3>Портфолио</h3><button class="primary" onclick="exportPortfolioMarkdown()">Markdown</button></div><div class="grid cols2">${db.portfolio.slice().reverse().map(p=>`<div class="card"><div class="label">${p.data.date} • ${esc(p.data.type)}</div><h3>${esc(p.data.title)}</h3><div class="evidence">${esc(p.data.body)}</div><button class="danger" onclick="deleteItem('portfolio','${p.id}')">×</button></div>`).join("")||"<div class='card'><p class='label'>Готовые материалы добавляй из «Медиацентра».</p></div>"}</div>`}
 function renderExport(){document.getElementById("dataExport").innerHTML=`<div class="grid cols3"><div class="card"><h3>JSON</h3><button class="primary" onclick="exportJSON()">Скачать базу</button><input type="file" accept=".json" onchange="importJSON(event)"></div><div class="card"><h3>Excel</h3><button class="primary" onclick="exportExcel()">Скачать XLSX</button></div><div class="card"><h3>Карта PNG</h3><button class="primary" onclick="exportMapPNG()">Скачать PNG</button></div><div class="card"><h3>Облако</h3><button onclick="pushAll()">Push</button> <button onclick="pullAll()">Pull</button></div></div>`}
@@ -308,6 +346,17 @@ async function exportMapPNG(){setPage("map");setTimeout(async()=>{let el=documen
 function exportJSON(){let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="tskhorbatae-sync-backup.json";a.click()}function importJSON(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{db=JSON.parse(r.result);saveLocal();render()};r.readAsText(f)}
 function exportExcel(){let wb=XLSX.utils.book_new();for(const t of types){XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(db[t].map(x=>({id:x.id,...x.data}))),t)}XLSX.writeFile(wb,"tskhorbatae-sync.xlsx")}
 function exportPortfolioMarkdown(){let md="# Портфолио TSKHORBATÆ\n\n"+db.portfolio.map(p=>`## ${p.data.title}\n\n${p.data.date} · ${p.data.type}\n\n${p.data.body}`).join("\n\n---\n\n");let blob=new Blob([md],{type:"text/markdown"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="tskhorbatae-portfolio.md";a.click()}
+
+function generatePublication(){
+ let news=db.news.slice(-5).reverse();
+ let text="Дайджест Южной Осетии\n\n";
+ news.forEach((n,i)=>{
+   text+=`${i+1}. ${n.data.title}\n${n.data.conclusion||n.data.fact||""}\n\n`;
+ });
+ upsertItem(row("product",{date:todayISO(),title:"Автопост",type:"Telegram",status:"Черновик",body:text}));
+ setPage("media");
+}
+
 initDefaults();initNav();initSupabase();initAuth();setPage("dashboard");render();
 </script>
 </body>
