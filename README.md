@@ -18,3 +18,6 @@
 
 
 FIX: исправлена ошибка Safari `Unexpected keyword 'export'` — секция `export` переименована в `exports`.
+
+
+FIX 2: полностью убран standalone `export` из id/объектов/DOM-переменных. Левый русский слоган заменён на цитату.
