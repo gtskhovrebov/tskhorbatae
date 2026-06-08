@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>TSKHORBATÆ — Аналитический центр</title>
+<title>TSKHORBATÆ 2.0 — Аналитический центр</title>
 <meta name="theme-color" content="#0b0604">
 <link rel="manifest" href="manifest.json">
 <style>
@@ -59,28 +59,216 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
 
 @media(max-width:980px){.app{display:block}aside{display:none}main{padding:14px}.mobile-menu{display:flex;gap:8px;overflow:auto;margin-bottom:14px;padding-bottom:4px}.navbtn{white-space:nowrap;background:var(--card);border-color:var(--stroke)}.title h2{font-size:28px}.cols6,.cols5,.cols4,.cols3,.cols2,.two,.three{grid-template-columns:1fr}table{display:block;overflow-x:auto}.searchbar{grid-template-columns:1fr auto}.map-board{height:560px}.node{width:185px}}
 
-:root[data-theme="dark"]{
- --bg:#0A0B0D;
- --panel:#13161A;
- --card:#1A1F24;
- --gold:#C9A86A;
- --text:#F4F4F4;
+/* ---------- TSKHORBATÆ 2.0 visual fixes ---------- */
+html[data-theme="dark"]{
+  --bg:#080504;
+  --panel:#130b08;
+  --card:rgba(255,255,255,.075);
+  --card2:rgba(255,255,255,.12);
+  --stroke:rgba(255,255,255,.16);
+  --gold:#d9a33c;
+  --gold2:#f3d58c;
+  --text:#fff7ed;
+  --muted:#cbb8a6;
 }
-:root[data-theme="light"]{
- --bg:#F3EFE7;
- --panel:#FAF7F0;
- --card:#FFFFFF;
- --gold:#A27B3A;
- --text:#1F2328;
+html[data-theme="light"]{
+  --bg:#efe7d8;
+  --panel:#fbf6ea;
+  --card:rgba(255,255,255,.72);
+  --card2:rgba(255,255,255,.9);
+  --stroke:rgba(80,56,28,.18);
+  --gold:#9b6a22;
+  --gold2:#6f4716;
+  --text:#20160d;
+  --muted:#6b5949;
 }
-.theme-toggle{display:flex;gap:8px}
-.theme-btn{border-radius:14px;padding:8px 12px;cursor:pointer}
-.brand .logo{
- background:linear-gradient(135deg,#6f5328,#c9a86a,#7b5a2b);
- border-radius:50%;
- box-shadow:0 0 20px rgba(201,168,106,.35);
+html[data-theme="light"] body{
+  background:
+    radial-gradient(circle at 8% 4%,rgba(155,106,34,.14),transparent 32%),
+    radial-gradient(circle at 95% 5%,rgba(120,65,32,.10),transparent 34%),
+    linear-gradient(135deg,#efe7d8,#fbf6ea 65%,#e4d3b7);
 }
-.quote-line{font-style:italic;font-family:Georgia,serif}
+html[data-theme="light"] aside{background:rgba(250,246,234,.72)}
+html[data-theme="light"] input,
+html[data-theme="light"] select,
+html[data-theme="light"] textarea{background:rgba(255,255,255,.72)}
+html[data-theme="light"] .evidence{background:rgba(155,106,34,.07)}
+.logo{
+  background:none!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.motto-quote{
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid rgba(243,213,140,.22);
+  color:var(--gold2);
+  font-family:Georgia,serif;
+  font-style:italic;
+  line-height:1.55;
+  font-size:13.5px;
+}
+.theme-toggle{
+  display:inline-flex;
+  gap:6px;
+  border:1px solid var(--stroke);
+  background:var(--card);
+  padding:5px;
+  border-radius:999px;
+}
+.theme-btn{
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:13px;
+}
+.theme-btn.active{
+  background:linear-gradient(135deg,#b7781d,#f3d58c);
+  color:#170c05;
+}
+.searchbar.dictionary-search{grid-template-columns:1fr auto}
+.influence-rank{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:900;
+  border:1px solid var(--stroke);
+}
+.influence-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  display:inline-block;
+}
+.influence-meter{
+  height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  overflow:hidden;
+  margin-top:8px;
+}
+.influence-meter span{
+  display:block;
+  height:100%;
+  border-radius:999px;
+}
+.node{
+  width:150px!important;
+  min-height:58px!important;
+  padding:9px!important;
+}
+.node h4{
+  font-size:13px!important;
+  line-height:1.15!important;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.node p{font-size:11px!important;margin:3px 0!important}
+.node .status{font-size:10px!important;padding:4px 6px!important}
+.export-grid .card h3{margin-top:0}
+.media-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+
+/* ---------- 2.1 Recovery: contrast / calendar / tasks ---------- */
+html[data-theme="light"] .card,
+html[data-theme="light"] .mini-card{
+  color:#20160d!important;
+}
+html[data-theme="light"] .label{
+  color:#5b4632!important;
+}
+html[data-theme="light"] .lane{
+  color:#5b3a12!important;
+  border-top-color:rgba(80,56,28,.35)!important;
+}
+html[data-theme="light"] .node{
+  background:rgba(255,255,255,.92)!important;
+  color:#20160d!important;
+}
+html[data-theme="light"] .node .label{
+  color:#4a3725!important;
+}
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
+}
+.weekday{
+  text-align:center;
+  font-size:11px;
+  color:var(--gold2);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.day{
+  min-height:104px;
+  border:1px solid var(--stroke);
+  border-radius:16px;
+  background:var(--card);
+  padding:10px;
+  cursor:pointer;
+}
+.day.today{
+  border-color:var(--gold);
+  box-shadow:0 0 0 1px rgba(217,163,60,.35) inset;
+}
+.day.empty{
+  opacity:.35;
+  cursor:default;
+}
+.day-num{
+  font-weight:900;
+  margin-bottom:6px;
+}
+.day-task{
+  font-size:11px;
+  margin:4px 0;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+html[data-theme="light"] .day-task{color:#5b4632!important}
+.task-row{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:12px;
+  border:1px solid var(--stroke);
+  border-radius:18px;
+  background:var(--card);
+  margin-bottom:10px;
+}
+.task-row.done{opacity:.7}
+.task-check{
+  width:30px;
+  height:30px;
+  min-width:30px;
+  display:grid;
+  place-items:center;
+  border:1px solid var(--stroke);
+  border-radius:11px;
+  cursor:pointer;
+  font-weight:900;
+}
+.task-row.done .task-check{
+  background:linear-gradient(135deg,#4d9f50,#a8f2a9);
+  color:#062006;
+}
+.exam-question{
+  border:1px solid var(--stroke);
+  border-radius:16px;
+  padding:12px;
+  background:var(--card);
+  margin-bottom:10px;
+}
+@media(max-width:980px){
+  .calendar{grid-template-columns:repeat(2,1fr)}
+  .weekday{display:none}
+}
 
 </style>
 </head>
@@ -90,8 +278,13 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
   <div class="logo">Æ</div>
   <h1>TSKHORBATÆ</h1>
   <div class="sub motto">
-    <span class="quote-line">От знания языка — к пониманию народа.</span><br><br>
-<span class="quote-line">От понимания народа — к пониманию государства.</span>
+    <b>Æвзаг.</b><br>
+    <b>Адæм.</b><br>
+    <b>Паддзахад.</b>
+    <div class="motto-quote">
+      <div>«От знания языка — к пониманию народа.</div>
+      <div>От понимания народа — к пониманию государства.»</div>
+    </div>
   </div>
   <div class="side-goal">
     <div class="goal-kicker">Цель</div>
@@ -101,23 +294,22 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;bor
 </div><nav id="nav"></nav></aside>
 <main>
 <div class="mobile-menu" id="mobileNav"></div>
-<div class="topbar"><div class="theme-toggle"><button class="theme-btn" onclick="setTheme('dark')">🌙</button><button class="theme-btn" onclick="setTheme('light')">☀️</button></div><div class="title"><h2 id="pageTitle">Главная панель</h2><p id="pageSub"></p></div><div class="pill" id="syncPill">Не подключено</div></div>
-<section id="dashboard" class="section active"></section><section id="language" class="section"></section><section id="monitoring" class="section"></section><section id="actors" class="section"></section><section id="map" class="section"></section><section id="analysis" class="section"></section><section id="media" class="section"></section><section id="portfolio" class="section"></section><section id="dataExport" class="section"></section><section id="setup" class="section"></section>
+<div class="topbar">
+  <div class="title"><h2 id="pageTitle">Главная панель</h2><p id="pageSub"></p></div>
+  <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <div class="theme-toggle">
+      <button class="theme-btn" id="themeDarkBtn" onclick="setTheme('dark')">Тёмная</button>
+      <button class="theme-btn" id="themeLightBtn" onclick="setTheme('light')">Светлая</button>
+    </div>
+    <div class="pill" id="syncPill">Не подключено</div>
+  </div>
+</div>
+<section id="dashboard" class="section active"></section><section id="plan" class="section"></section><section id="calendar" class="section"></section><section id="exam" class="section"></section><section id="language" class="section"></section><section id="monitoring" class="section"></section><section id="actors" class="section"></section><section id="map" class="section"></section><section id="analysis" class="section"></section><section id="media" class="section"></section><section id="portfolio" class="section"></section><section id="dataExport" class="section"></section><section id="setup" class="section"></section>
 </main>
 </div>
 <div class="modal" id="modal"><div class="modalbox"><div class="section-title" style="margin-top:0"><h3 id="modalTitle">Добавить</h3><button onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-function setTheme(t){
- document.documentElement.setAttribute('data-theme',t);
- localStorage.setItem('tsk_theme',t);
-}
-(function(){
- const t=localStorage.getItem('tsk_theme')||'dark';
- document.documentElement.setAttribute('data-theme',t);
-})();
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -125,9 +317,20 @@ function setTheme(t){
 <script>
 const CONFIG_KEY="tskhorbatae.sync.config";
 const LOCAL_KEY="tskhorbatae.sync.local";
+function setTheme(t){
+ document.documentElement.setAttribute("data-theme",t);
+ localStorage.setItem("tsk_theme",t);
+ const d=document.getElementById("themeDarkBtn");
+ const l=document.getElementById("themeLightBtn");
+ if(d&&l){d.classList.toggle("active",t==="dark");l.classList.toggle("active",t==="light");}
+}
+(function(){setTheme(localStorage.getItem("tsk_theme")||"dark");})();
 const OS_ALPHABET=["Все","А","Ӕ","Б","В","Г","Гъ","Д","Дз","Дж","Е","Ё","Ж","З","И","Й","К","Къ","Л","М","Н","О","П","Пъ","Р","С","Т","Тъ","У","Ф","Х","Хъ","Ц","Цъ","Ч","Чъ","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"];
 const pages=[
  ["dashboard","🏠","Главная панель","Ежедневный режим, прогресс и сигналы."],
+ ["plan","✅","План дня","Ежедневные задачи, галочки и дисциплина."],
+ ["calendar","📅","Календарь","Планирование задач по дням."],
+ ["exam","🎓","Самопроверка","Рефлексия, экзамен и контроль результата."],
  ["language","📚","Осетинский язык","Словарь, поиск и алфавит."],
  ["monitoring","📰","Информационное поле","Источники, новости и повестка."],
  ["actors","👥","Акторы","Люди, организации, группы влияния и досье."],
@@ -227,21 +430,171 @@ async function signIn(){
 async function signOut(){ if(supa) await supa.auth.signOut(); session=null; online=false; updateSyncPill(); render(); }
 function initNav(){nav.innerHTML=mobileNav.innerHTML="";pages.forEach(p=>{let b=document.createElement("button");b.className="navbtn";b.dataset.page=p.id;b.innerHTML=`<b>${p.icon}</b> ${p.title}`;b.onclick=()=>setPage(p.id);let b2=b.cloneNode(true);b2.onclick=()=>setPage(p.id);nav.appendChild(b);mobileNav.appendChild(b2)})}
 function setPage(id){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.page===id));let p=pages.find(x=>x.id===id);pageTitle.textContent=p.title;pageSub.textContent=p.sub;renderSection(id)}
-function render(){renderSection(document.querySelector(".section.active")?.id||"dashboard")}
-function renderSection(id){charts.forEach(c=>c.destroy());charts=[];({dashboard:renderDashboard,language:renderLanguage,monitoring:renderMonitoring,actors:renderActors,map:renderMap,analysis:renderAnalysis,media:renderMedia,portfolio:renderPortfolio,dataExport:renderExport,setup:renderSetup}[id]||renderDashboard)()}
+function render(){setTheme(localStorage.getItem("tsk_theme")||"dark");renderSection(document.querySelector(".section.active")?.id||"dashboard")}
+function renderSection(id){charts.forEach(c=>c.destroy());charts=[];({dashboard:renderDashboard,plan:renderPlan,calendar:renderCalendar,exam:renderExam,language:renderLanguage,monitoring:renderMonitoring,actors:renderActors,map:renderMap,analysis:renderAnalysis,media:renderMedia,portfolio:renderPortfolio,dataExport:renderExport,setup:renderSetup}[id]||renderDashboard)()}
 function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card"><h3>1. Supabase: подключение</h3><div class="form"><input id="sbUrl" placeholder="Supabase Project URL" value="${escAttr(cfg.url||"")}"><input id="sbAnon" placeholder="Supabase anon public key" value="${escAttr(cfg.anonKey||"")}"><button class="primary" onclick="cfg.url=sbUrl.value.trim();cfg.anonKey=sbAnon.value.trim();localStorage.setItem(CONFIG_KEY,JSON.stringify(cfg));initSupabase();initAuth();alert('Сохранено')">Сохранить подключение</button></div></div><div class="card"><h3>2. Аккаунт</h3><div class="form"><input id="authEmail" placeholder="Email"><input id="authPassword" type="password" placeholder="Пароль"><button class="primary" onclick="signIn()">Войти</button><button onclick="signUp()">Создать аккаунт</button><button class="danger" onclick="signOut()">Выйти</button></div><p class="label">Войди под одной почтой на MacBook и iPhone — база будет общей.</p></div><div class="card"><h3>3. Синхронизация</h3><button class="primary" onclick="pushAll()">Отправить локальное в облако</button> <button onclick="pullAll()">Загрузить из облака</button><p class="label">Если работал офлайн, нажми «Отправить локальное в облако».</p></div></div>`}
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
-function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Диаграммы прогресса</h3></div><div class="grid cols2"><div class="card"><canvas id="goalChart"></canvas></div><div class="card"><canvas id="contourChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button onclick="setPage('map')">Карта</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
+function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Диаграммы прогресса</h3></div><div class="grid cols2"><div class="card"><canvas id="goalChart"></canvas></div><div class="card"><canvas id="contourChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
  chartBar("goalChart",["Слова","Источники","Новости","Акторы","Продукты"],[db.word.length,db.source.length,db.news.length,db.actor.length,db.product.length],[1000,100,500,150,30]);
  chartPie("contourChart",["РЮО","Россия","Грузия","Межд.","Диаспора"],["РЮО","Россия","Грузия","Международные организации","Диаспора"].map(c=>db.actor.filter(a=>a.data.contour===c).length));
 }
 function chartBar(id,labels,values,targets){let ctx=document.getElementById(id);charts.push(new Chart(ctx,{type:"bar",data:{labels,datasets:[{label:"Факт",data:values},{label:"Цель",data:targets}]},options:{plugins:{legend:{labels:{color:"#fff7ed"}}},scales:{x:{ticks:{color:"#fff7ed"}},y:{ticks:{color:"#fff7ed"}}}}}))}
 function chartPie(id,labels,values){let ctx=document.getElementById(id);charts.push(new Chart(ctx,{type:"doughnut",data:{labels,datasets:[{data:values}]},options:{plugins:{legend:{labels:{color:"#fff7ed"}}}}}))}
 function normWord(s){return String(s||"").toLowerCase().replaceAll("æ","ӕ")}function startsWithOsLetter(word,letter){if(letter==="Все")return true;return normWord(word).startsWith(normWord(letter))}function osLetterIndex(word){let w=normWord(word).trim();for(let i=1;i<OS_ALPHABET.length;i++){let l=normWord(OS_ALPHABET[i]).toLowerCase();if(w.startsWith(l))return i}return 999}
+let languageSearchTimer=null;
+function debouncedRenderLanguage(){
+ clearTimeout(languageSearchTimer);
+ languageSearchTimer=setTimeout(()=>renderLanguage(),120);
+}
 function filteredWords(){let q=normWord(wordFilter).trim();return db.word.filter(w=>(startsWithOsLetter(w.data.word,letterFilter))&&(!q||normWord(w.data.word).includes(q)||normWord(w.data.translation).includes(q))).sort((a,b)=>osLetterIndex(a.data.word)-osLetterIndex(b.data.word)||normWord(a.data.word).localeCompare(normWord(b.data.word),"ru"))}
-function renderLanguage(){let list=filteredWords();language.innerHTML=`<div class="grid cols4">${metric(db.word.length+"/1000","Слова")}${metric(db.word.filter(w=>w.data.status==="Закреплено").length,"Закреплено")}${metric(db.word.filter(w=>w.data.date===todayISO()).length+"/10","Сегодня")}${metric(list.length,"Найдено")}</div><div class="section-title"><h3>Словарь</h3><button class="primary" onclick="openWord()">+ слово</button></div><div class="card"><div class="searchbar"><input id="wordSearch" placeholder="Поиск: осетинское слово или русский перевод" value="${escAttr(wordFilter)}" oninput="wordFilter=this.value;renderLanguage()"><button onclick="wordFilter=wordSearch.value;renderLanguage()">Найти</button><button class="kbd" onclick="insertToSearch('ӕ')">ӕ</button></div><div class="alpha-grid">${OS_ALPHABET.map(l=>`<button class="alpha-btn ${letterFilter===l?'active':''}" onclick="letterFilter='${escAttr(l)}';renderLanguage()">${esc(l)}</button>`).join("")}</div><table><thead><tr><th>Слово</th><th>Перевод</th><th>Пример</th><th>Статус</th><th></th></tr></thead><tbody>${list.map(w=>`<tr><td><b>${esc(w.data.word)}</b></td><td>${esc(w.data.translation)}</td><td>${esc(w.data.example||"")}</td><td>${status(w.data.status||"Изучается","æ")}</td><td><button onclick="openWord('${w.id}')">✎</button><button class="danger" onclick="deleteItem('word','${w.id}')">×</button></td></tr>`).join("")}</tbody></table></div>`}
+
+function ensureDailyTasks(date=todayISO()){
+ const exists=db.task.some(t=>t.data.deadline===date && t.data.autoDaily);
+ if(exists) return;
+ const base=[
+   ["Осетинский язык: 10 слов","Язык","P0","Добавить новые слова и повторить старые."],
+   ["Обработать 3 новости","Мониторинг","P0","Факт, причина, последствие, вывод."],
+   ["Обновить 1 актора или досье","Акторы","P1","Добавить роль, влияние, связи или заметку."],
+   ["Сделать 1 аналитический вывод","Аналитика","P0","Что произошло, почему и что изменится."],
+   ["Закрыть самопроверку дня","Самопроверка","P0","Что сделал, доказательство, следующий шаг."]
+ ];
+ base.forEach(x=>db.task.push(row("task",{title:x[0],area:x[1],deadline:date,done:false,priority:x[2],note:x[3],autoDaily:true})));
+ saveLocal();
+}
+function taskListFor(date){
+ return db.task.filter(t=>t.data.deadline===date).sort((a,b)=>(a.data.done-b.data.done)||String(a.data.priority).localeCompare(String(b.data.priority)));
+}
+function toggleTask(id){
+ const t=db.task.find(x=>x.id===id);
+ if(!t)return;
+ t.data.done=!t.data.done;
+ upsertItem(t);
+}
+function openTask(id){
+ let it=id?db.task.find(x=>x.id===id):null,d=it?.data||{};
+ openModal(id?"Редактировать задачу":"Новая задача",`<div class="form"><input id="t1" placeholder="Задача" value="${escAttr(d.title||"")}"><div class="three"><select id="t2">${opts(["Язык","Мониторинг","Акторы","Аналитика","Публикации","Самопроверка"],d.area||"Аналитика")}</select><select id="t3">${opts(["P0","P1","P2"],d.priority||"P1")}</select><input id="t4" type="date" value="${d.deadline||todayISO()}"></div><textarea id="t5" placeholder="Заметка">${esc(d.note||"")}</textarea><button class="primary" onclick="saveTask('${id||""}')">Сохранить</button></div>`);
+}
+function saveTask(id){
+ let it=id?db.task.find(x=>x.id===id):null;
+ let obj={title:t1.value,area:t2.value,priority:t3.value,deadline:t4.value,note:t5.value,done:it?.data.done||false,autoDaily:false};
+ if(it){it.data=obj;upsertItem(it)}else upsertItem(row("task",obj));
+ closeModal();
+}
+function renderTaskRows(list){
+ if(!list.length)return `<p class="label">На этот день задач нет. Нажми «Сформировать день».</p>`;
+ return list.map(t=>`<div class="task-row ${t.data.done?'done':''}"><div class="task-check" onclick="toggleTask('${t.id}')">${t.data.done?'✓':''}</div><div style="flex:1"><b>${esc(t.data.title)}</b><br><span class="label">${esc(t.data.area)} • ${esc(t.data.priority)} • ${esc(t.data.deadline)}</span>${t.data.note?`<p class="label">${esc(t.data.note)}</p>`:""}</div><button class="small" onclick="openTask('${t.id}')">✎</button><button class="danger small" onclick="deleteItem('task','${t.id}')">×</button></div>`).join("");
+}
+function renderPlan(){
+ ensureDailyTasks(todayISO());
+ const date=window.currentPlanDate||todayISO();
+ const list=taskListFor(date);
+ const done=list.filter(t=>t.data.done).length;
+ plan.innerHTML=`<div class="section-title"><h3>План дня</h3><div><button onclick="ensureDailyTasks('${date}');renderPlan()">Сформировать день</button> <button class="primary" onclick="openTask()">+ задача</button></div></div>
+ <div class="grid cols4">${metric(done+"/"+list.length,"Выполнено")}${metric(db.word.filter(w=>w.data.date===date).length+"/10","Слова")}${metric(db.news.filter(n=>n.data.date===date).length+"/3","Новости")}${metric(db.audit.some(a=>a.data.date===date)?"Да":"Нет","Самопроверка")}</div>
+ <div class="card" style="margin-top:14px"><div class="form two"><input type="date" id="planDate" value="${date}" onchange="window.currentPlanDate=this.value;renderPlan()"><button onclick="window.currentPlanDate=todayISO();renderPlan()">Сегодня</button></div></div>
+ <div class="card" style="margin-top:14px">${renderTaskRows(list)}</div>`;
+}
+function monthDays(year,month){
+ const first=new Date(year,month,1), last=new Date(year,month+1,0);
+ let days=[], start=(first.getDay()+6)%7;
+ for(let i=0;i<start;i++)days.push(null);
+ for(let d=1;d<=last.getDate();d++)days.push(new Date(year,month,d));
+ return days;
+}
+function renderCalendar(){
+ const now=new Date();
+ const y=window.calYear??now.getFullYear();
+ const m=window.calMonth??now.getMonth();
+ const days=monthDays(y,m);
+ const monthName=new Date(y,m,1).toLocaleDateString("ru-RU",{month:"long",year:"numeric"});
+ calendar.innerHTML=`<div class="section-title"><h3>Календарь — ${monthName}</h3><div><button onclick="window.calMonth=${m-1};window.calYear=${y};if(window.calMonth<0){window.calMonth=11;window.calYear--}renderCalendar()">←</button><button onclick="window.calMonth=${m+1};window.calYear=${y};if(window.calMonth>11){window.calMonth=0;window.calYear++}renderCalendar()">→</button><button class="primary" onclick="openTask()">+ задача</button></div></div>
+ <div class="calendar">
+ ${["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].map(x=>`<div class="weekday">${x}</div>`).join("")}
+ ${days.map(d=>{
+   if(!d)return `<div class="day empty"></div>`;
+   const iso=d.toLocaleDateString("sv-SE");
+   const list=taskListFor(iso);
+   return `<div class="day ${iso===todayISO()?'today':''}" onclick="window.currentPlanDate='${iso}';setPage('plan')"><div class="day-num">${d.getDate()}</div>${list.slice(0,3).map(t=>`<div class="day-task">${t.data.done?'✓':'□'} ${esc(t.data.title)}</div>`).join("")}${list.length>3?`<div class="day-task">+ ещё ${list.length-3}</div>`:""}</div>`;
+ }).join("")}
+ </div>`;
+}
+function generateExamQuestions(){
+ const qs=[
+  "Назови 5 главных источников по Южной Осетии и объясни, почему им можно/нельзя доверять.",
+  "Какая главная новость недели и почему она важна?",
+  "Кто сейчас ключевой актор в твоей базе и почему?",
+  "Как Россия влияет на текущую повестку Южной Осетии?",
+  "Как Грузия присутствует в повестке Южной Осетии?",
+  "Какой прогноз ты можешь сделать на ближайшую неделю?",
+  "Что ты понял сегодня лучше, чем вчера?"
+ ];
+ const top=db.actor.slice().sort((a,b)=>(+b.data.influence||0)-(+a.data.influence||0)).slice(0,2);
+ top.forEach(a=>qs.push(`Объясни роль актора: ${a.data.name}. Ресурсы, связи, влияние.`));
+ return qs.slice(0,8);
+}
+function renderExam(){
+ const questions=generateExamQuestions();
+ exam.innerHTML=`<div class="section-title"><h3>Самопроверка и экзамен</h3><button class="primary" onclick="openAddAudit()">+ самопроверка дня</button></div>
+ <div class="grid cols3">${metric(db.audit.length,"Самопроверок")}${metric(db.product.filter(p=>p.data.type==="Записка").length,"Записок")}${metric(db.news.filter(n=>n.data.conclusion).length,"Новостей с выводом")}</div>
+ <div class="grid cols2" style="margin-top:14px">
+   <div class="card"><h3>Экзамен недели</h3><p class="label">Ответы сохраняются как продукт «Экзамен». Потом можно сравнивать качество мышления.</p>${questions.map((q,i)=>`<div class="exam-question"><b>${i+1}. ${esc(q)}</b><textarea id="exam${i}" placeholder="Ответ"></textarea></div>`).join("")}<button class="primary" onclick="saveExamAnswers()">Сохранить экзамен</button></div>
+   <div class="card"><h3>Последние самопроверки</h3>${db.audit.slice(-6).reverse().map(a=>`<p><b>${a.data.date}</b><br>${esc(a.data.answer||"").slice(0,180)}</p>`).join("")||"<p class='label'>Пока нет самопроверок.</p>"}</div>
+ </div>`;
+}
+function saveExamAnswers(){
+ const answers=[...document.querySelectorAll("[id^=exam]")].map((x,i)=>`${i+1}. ${x.value}`).join("\\n\\n");
+ upsertItem(row("product",{date:todayISO(),title:"Экзамен самопроверки — "+todayISO(),type:"Экзамен",status:"Черновик",body:answers}));
+ setPage("media");
+}
+function renderLanguage(){
+ let list=filteredWords();
+ language.innerHTML=`<div class="grid cols4">${metric(db.word.length+"/1000","Слова")}${metric(db.word.filter(w=>w.data.status==="Закреплено").length,"Закреплено")}${metric(db.word.filter(w=>w.data.date===todayISO()).length+"/10","Сегодня")}${metric(list.length,"Найдено")}</div>
+ <div class="section-title"><h3>Словарь</h3><button class="primary" onclick="openWord()">+ слово</button></div>
+ <div class="card">
+   <div class="searchbar dictionary-search">
+     <input id="wordSearch" placeholder="Пиши обычной клавиатурой: русское или осетинское слово" value="${escAttr(wordFilter)}">
+     <button class="kbd" onclick="insertToSearch('ӕ')">ӕ</button>
+   </div>
+   <div class="alpha-grid">${OS_ALPHABET.map(l=>`<button class="alpha-btn ${letterFilter===l?'active':''}" onclick="letterFilter='${escAttr(l)}';renderLanguage()">${esc(l)}</button>`).join("")}</div>
+   <table><thead><tr><th>Слово</th><th>Перевод</th><th>Пример</th><th>Статус</th><th></th></tr></thead><tbody>${list.map(w=>`<tr><td><b>${esc(w.data.word)}</b></td><td>${esc(w.data.translation)}</td><td>${esc(w.data.example||"")}</td><td>${status(w.data.status||"Изучается","æ")}</td><td><button onclick="openWord('${w.id}')">✎</button><button class="danger" onclick="deleteItem('word','${w.id}')">×</button></td></tr>`).join("")}</tbody></table>
+ </div>`;
+ setTimeout(()=>{
+   const input=document.getElementById("wordSearch");
+   if(input){
+     input.oninput=()=>{wordFilter=input.value;renderLanguageListOnly();};
+     input.focus();
+     input.selectionStart=input.selectionEnd=input.value.length;
+   }
+ },0);
+}
+function renderLanguageListOnly(){
+ const input=document.getElementById("wordSearch");
+ if(input) wordFilter=input.value;
+ const list=filteredWords();
+ const tbody=document.querySelector("#language tbody");
+ const foundCards=document.querySelectorAll("#language .metric");
+ if(foundCards[3]) foundCards[3].textContent=list.length;
+ if(tbody){
+   tbody.innerHTML=list.map(w=>`<tr><td><b>${esc(w.data.word)}</b></td><td>${esc(w.data.translation)}</td><td>${esc(w.data.example||"")}</td><td>${status(w.data.status||"Изучается","æ")}</td><td><button onclick="openWord('${w.id}')">✎</button><button class="danger" onclick="deleteItem('word','${w.id}')">×</button></td></tr>`).join("");
+ }
+}
 function renderMonitoring(){monitoring.innerHTML=`<div class="section-title"><h3>Источники</h3><button class="primary" onclick="openSource()">+ источник</button></div><div class="card"><table><thead><tr><th>Название</th><th>Тип</th><th>Доверие</th><th>Ссылка</th><th></th></tr></thead><tbody>${db.source.map(s=>`<tr><td><b>${esc(s.data.name)}</b><br><span class="label">${esc(s.data.note||"")}</span></td><td>${esc(s.data.type)}</td><td>${status(s.data.trust,"★")}</td><td>${s.data.url?`<a href="${esc(s.data.url)}" target="_blank">открыть</a>`:"—"}</td><td><button onclick="openSource('${s.id}')">✎</button><button class="danger" onclick="deleteItem('source','${s.id}')">×</button></td></tr>`).join("")}</tbody></table></div><div class="section-title"><h3>Новости</h3><button class="primary" onclick="openNews()">+ новость</button></div><div class="grid cols2">${db.news.slice().reverse().map(n=>newsCard(n)).join("")||"<div class='card'><p class='label'>Нет новостей.</p></div>"}</div>`}
 function newsCard(n){let src=db.source.find(s=>s.id===n.data.sourceId),acts=(n.data.actorIds||[]).map(id=>db.actor.find(a=>a.id===id)?.data.name).filter(Boolean).join(", ");return`<div class="card"><div class="label">${n.data.date} • ${esc(n.data.category)} • ${status(n.data.importance||"Средняя","☉")}</div><h3>${esc(n.data.title)}</h3><p>${esc(n.data.fact||"")}</p><p><b>Источник:</b> ${src?esc(src.data.name):"—"} ${n.data.link?`• <a href="${esc(n.data.link)}" target="_blank">ссылка</a>`:""}</p><p><b>Акторы:</b> ${esc(acts)||"—"}</p><div class="evidence"><b>Вывод:</b><br>${esc(n.data.conclusion)||"—"}</div><button onclick="openNews('${n.id}')">✎</button> <button onclick="productFromNews('${n.id}')">Пост</button> <button class="danger" onclick="deleteItem('news','${n.id}')">×</button></div>`}
+
+
+function influenceLevel(v){
+ v=+v||0;
+ if(v>=90) return {label:"Центр решений",className:"inf-core",color:"#d9a33c",dot:"◆"};
+ if(v>=75) return {label:"Ключевое влияние",className:"inf-key",color:"#f3d58c",dot:"●"};
+ if(v>=55) return {label:"Высокое влияние",className:"inf-high",color:"#e6a84d",dot:"●"};
+ if(v>=35) return {label:"Среднее влияние",className:"inf-mid",color:"#77c87a",dot:"●"};
+ if(v>=15) return {label:"Локальное влияние",className:"inf-low",color:"#84a9ff",dot:"●"};
+ return {label:"Слабое влияние",className:"inf-min",color:"#8b8b8b",dot:"○"};
+}
+function influenceBadge(v){
+ let inf=influenceLevel(v);
+ return `<span class="influence-rank" style="border-color:${inf.color};color:${inf.color}"><span class="influence-dot" style="background:${inf.color}"></span>${inf.label} · ${v}/100</span><div class="influence-meter"><span style="width:${Math.max(0,Math.min(100,+v||0))}%;background:${inf.color}"></span></div>`;
+}
 
 function renderActors(){
   let contours=["Все","РЮО","Россия","Грузия","Абхазия","Международные организации","Диаспора","Иное"];
@@ -259,7 +612,7 @@ function dossierCard(a){
   return `<div class="card"><div class="label">${esc(a.data.contour||"РЮО")} • ${esc(a.data.sphere||"—")} • упоминаний: ${mentions.length}</div>
   <h3>${esc(a.data.name)}</h3>
   <p><b>Роль:</b> ${esc(a.data.role||"—")}</p>
-  <p><b>Влияние:</b> ${esc(a.data.influence??"—")}/100</p>
+  <div>${influenceBadge(+a.data.influence||0)}</div>
   <p><b>Ресурсы:</b> ${esc(a.data.resources||"—")}</p>
   <p><b>Связи:</b> ${esc(a.data.links||"—")}</p>
   <div class="evidence">${esc(a.data.note||"Пока нет заметок.")}</div>
@@ -308,32 +661,57 @@ function autoLayoutSimple(){
   renderMap();
 }
 function renderAnalytics(){renderActors();}
-function actorCard(a){let inf=influenceLevel(+a.data.influence||0);return`<div class="card"><div class="label">${esc(a.data.kind)} • ${esc(a.data.contour)} • ${esc(a.data.sphere)}</div><h3>${esc(a.data.name)}</h3><p>${esc(a.data.role)}</p><p><span class="status" style="background:${inf[1]}22;border-color:${inf[1]};color:white">${inf[2]} ${inf[0]}</span> <b>${a.data.influence}/100</b></p><p class="label">${esc(a.data.note||"")}</p><button onclick="openActor('${a.id}')">✎</button> <button onclick="addNodeFromActor('${a.id}')">◎ в карту</button> <button class="danger" onclick="deleteItem('actor','${a.id}')">×</button></div>`}
-
-function influenceLevel(v){
- if(v>=80) return ["Ключевой","#d9a33c","🟡"];
- if(v>=60) return ["Высокий","#e6a84d","🟠"];
- if(v>=40) return ["Средний","#77c87a","🟢"];
- if(v>=20) return ["Локальный","#84a9ff","🔵"];
- return ["Низкий","#888","⚪"];
-}
-
-function renderMedia(){media.innerHTML=`<div class="section-title"><h3>Медиацентр</h3><div><button onclick="createDigest()">Дайджест</button><button class="primary" onclick="openProduct()">+ продукт</button><button onclick="generatePublication()">Сгенерировать пост</button></div></div><div class="grid cols2">${db.product.slice().reverse().map(p=>productCard(p)).join("")||"<div class='card'><p class='label'>Пока нет продуктов.</p></div>"}</div>`}
+function actorCard(a){let v=+a.data.influence||0;return`<div class="card"><div class="label">${esc(a.data.kind)} • ${esc(a.data.contour)} • ${esc(a.data.sphere)}</div><h3>${esc(a.data.name)}</h3><p>${esc(a.data.role)}</p><div>${influenceBadge(v)}</div><p class="label" style="margin-top:10px">${esc(a.data.note||"")}</p><button onclick="openActor('${a.id}')">✎</button> <button onclick="addNodeFromActor('${a.id}')">◎ в карту</button> <button class="danger" onclick="deleteItem('actor','${a.id}')">×</button></div>`}
+function renderMedia(){media.innerHTML=`<div class="section-title"><h3>Медиацентр</h3><div class="media-actions"><button class="primary" onclick="openGeneratePublication()">Сгенерировать пост</button><button onclick="createDigest()">Дайджест</button><button onclick="openProduct()">+ продукт</button></div></div><div class="card"><p class="label"><b>Как работает генератор:</b> он не подключён к ChatGPT и не пишет «из головы». Он собирает черновик из твоих последних новостей, выводов и источников. Потом ты редактируешь текст и публикуешь в Telegram/VK.</p></div><div class="grid cols2">${db.product.slice().reverse().map(p=>productCard(p)).join("")||"<div class='card'><p class='label'>Пока нет продуктов. Нажми «Сгенерировать пост» или добавь продукт вручную.</p></div>"}</div>`}
 function productCard(p){return`<div class="card"><div class="label">${p.data.date} • ${esc(p.data.type)} • ${status(p.data.status,"✍")}</div><h3>${esc(p.data.title)}</h3><div class="evidence">${esc(p.data.body)}</div><button onclick="openProduct('${p.id}')">✎</button> <button onclick="copyProduct('${p.id}')">Копировать</button> <button onclick="coverFromProduct('${p.id}')">PNG-обложка</button> <button onclick="publishPortfolio('${p.id}')">В портфолио</button> <button class="danger" onclick="deleteItem('product','${p.id}')">×</button></div>`}
-function renderPortfolio(){portfolio.innerHTML=`<div class="section-title"><h3>Портфолио</h3><button class="primary" onclick="exportPortfolioMarkdown()">Markdown</button></div><div class="grid cols2">${db.portfolio.slice().reverse().map(p=>`<div class="card"><div class="label">${p.data.date} • ${esc(p.data.type)}</div><h3>${esc(p.data.title)}</h3><div class="evidence">${esc(p.data.body)}</div><button class="danger" onclick="deleteItem('portfolio','${p.id}')">×</button></div>`).join("")||"<div class='card'><p class='label'>Готовые материалы добавляй из «Медиацентра».</p></div>"}</div>`}
-function renderExport(){document.getElementById("dataExport").innerHTML=`<div class="grid cols3"><div class="card"><h3>JSON</h3><button class="primary" onclick="exportJSON()">Скачать базу</button><input type="file" accept=".json" onchange="importJSON(event)"></div><div class="card"><h3>Excel</h3><button class="primary" onclick="exportExcel()">Скачать XLSX</button></div><div class="card"><h3>Карта PNG</h3><button class="primary" onclick="exportMapPNG()">Скачать PNG</button></div><div class="card"><h3>Облако</h3><button onclick="pushAll()">Push</button> <button onclick="pullAll()">Pull</button></div></div>`}
+function renderPortfolio(){portfolio.innerHTML=`<div class="section-title"><h3>Портфолио</h3><button class="primary" onclick="exportPortfolioMarkdown()">Скачать портфолио</button></div><div class="card"><p class="label">Портфолио — это витрина готовых материалов. Добавляй сюда продукты из Медиацентра кнопкой «В портфолио».</p></div><div class="grid cols2">${db.portfolio.slice().reverse().map(p=>`<div class="card"><div class="label">${p.data.date} • ${esc(p.data.type)}</div><h3>${esc(p.data.title)}</h3><div class="evidence">${esc(p.data.body)}</div><button class="danger" onclick="deleteItem('portfolio','${p.id}')">×</button></div>`).join("")||"<div class='card'><p class='label'>Портфолио пока пустое. Готовые материалы добавляй из «Медиацентра».</p></div>"}</div>`}
+function renderExport(){document.getElementById("dataExport").innerHTML=`<div class="grid cols3 export-grid"><div class="card"><h3>База данных</h3><p class="label">Полный резерв: слова, новости, акторы, продукты.</p><button class="primary" onclick="exportJSON()">Скачать JSON</button><input type="file" accept=".json" onchange="importJSON(event)"></div><div class="card"><h3>Excel-таблицы</h3><p class="label">Все разделы в XLSX: удобно отправлять и проверять.</p><button class="primary" onclick="exportExcel()">Скачать XLSX</button></div><div class="card"><h3>Карта влияния</h3><p class="label">PNG-картинка текущей карты влияния.</p><button class="primary" onclick="exportMapPNG()">Скачать PNG карты</button></div><div class="card"><h3>Портфолио</h3><p class="label">Готовые материалы одним текстовым файлом.</p><button onclick="exportPortfolioMarkdown()">Скачать портфолио</button></div><div class="card"><h3>Облако</h3><p class="label">Ручная синхронизация с Supabase.</p><button onclick="pushAll()">Отправить</button> <button onclick="pullAll()">Загрузить</button></div></div>`}
 function openModal(t,b){modalTitle.textContent=t;modalBody.innerHTML=b;modal.classList.add("open")}function closeModal(){modal.classList.remove("open")}function formButtons(id){return `<button class="primary" id="${id}">Сохранить</button>`}
-function openWord(id){let it=id?db.word.find(x=>x.id===id):null,d=it?.data||{};openModal("Слово",`<div class="form"><div class="searchbar"><input id="w1" value="${escAttr(d.word||"")}" placeholder="Осетинское слово"><button onclick="insertAe('w1','ӕ')" type="button">ӕ</button><button onclick="insertAe('w1','æ')" type="button">æ</button></div><input id="w2" value="${escAttr(d.translation||"")}" placeholder="Русский перевод"><input id="w3" value="${escAttr(d.example||"")}" placeholder="Пример"><select id="w4">${opts(["Изучается","Закреплено","Повторить"],d.status||"Изучается")}</select>${formButtons("saveBtn")}</div>`);saveBtn.onclick=()=>{let obj={word:w1.value,translation:w2.value,example:w3.value,status:w4.value,date:d.date||todayISO()};it? (it.data=obj,upsertItem(it)) : upsertItem(row("word",obj)); closeModal();};}
-function insertAe(id,ch){let el=document.getElementById(id),s=el.selectionStart||0;el.value=el.value.slice(0,s)+ch+el.value.slice(s);el.focus();el.selectionStart=el.selectionEnd=s+ch.length}function insertToSearch(ch){let el=document.getElementById("wordSearch"),s=el.selectionStart||0;el.value=el.value.slice(0,s)+ch+el.value.slice(s);wordFilter=el.value;renderLanguage()}
+function openWord(id){let it=id?db.word.find(x=>x.id===id):null,d=it?.data||{};openModal("Слово",`<div class="form"><div class="searchbar"><input id="w1" value="${escAttr(d.word||"")}" placeholder="Осетинское слово"><button onclick="insertAe('w1','ӕ')" type="button">ӕ</button></div><input id="w2" value="${escAttr(d.translation||"")}" placeholder="Русский перевод"><input id="w3" value="${escAttr(d.example||"")}" placeholder="Пример"><select id="w4">${opts(["Изучается","Закреплено","Повторить"],d.status||"Изучается")}</select>${formButtons("saveBtn")}</div>`);saveBtn.onclick=()=>{let obj={word:w1.value,translation:w2.value,example:w3.value,status:w4.value,date:d.date||todayISO()};it? (it.data=obj,upsertItem(it)) : upsertItem(row("word",obj)); closeModal();};}
+function insertAe(id,ch){let el=document.getElementById(id),s=el.selectionStart||0;el.value=el.value.slice(0,s)+ch+el.value.slice(s);el.focus();el.selectionStart=el.selectionEnd=s+ch.length}function insertToSearch(ch){let el=document.getElementById("wordSearch");if(!el)return;let s=el.selectionStart||0;el.value=el.value.slice(0,s)+ch+el.value.slice(s);el.focus();el.selectionStart=el.selectionEnd=s+ch.length;wordFilter=el.value;renderLanguageListOnly()}
 function openSource(id){let it=id?db.source.find(x=>x.id===id):null,d=it?.data||{};openModal("Источник",`<div class="form"><input id="s1" value="${escAttr(d.name||"")}" placeholder="Название"><div class="three"><select id="s2">${opts(["Официальный","Официальное СМИ","СМИ","Telegram","Аналитика","Международный","Документ"],d.type)}</select><select id="s3">${opts(["Высокий","Средний","Низкий"],d.trust||"Средний")}</select><input id="s4" value="${escAttr(d.url||"")}" placeholder="URL"></div><textarea id="s5" placeholder="Заметка">${esc(d.note||"")}</textarea>${formButtons("saveBtn")}</div>`);saveBtn.onclick=()=>{let obj={name:s1.value,type:s2.value,trust:s3.value,url:s4.value,note:s5.value};it?(it.data=obj,upsertItem(it)):upsertItem(row("source",obj));closeModal();};}
 function openNews(id){let it=id?db.news.find(x=>x.id===id):null,d=it?.data||{};openModal("Новость",`<div class="form"><input id="n1" value="${escAttr(d.title||"")}" placeholder="Заголовок"><div class="three"><select id="n2">${opts(["Политика","Россия—РЮО","Грузия—РЮО","Экономика","Общество","Кадры","Безопасность","Культура","Иное"],d.category)}</select><select id="n3"><option value="">Источник</option>${db.source.map(s=>`<option value="${s.id}" ${s.id==d.sourceId?"selected":""}>${esc(s.data.name)}</option>`).join("")}</select><select id="n6">${opts(["Низкая","Средняя","Высокая"],d.importance||"Средняя")}</select></div><input id="n4" value="${escAttr(d.link||"")}" placeholder="Ссылка"><select id="n5" multiple size="5">${multiOpts(db.actor,d.actorIds||[])}</select><textarea id="n7" placeholder="Факт">${esc(d.fact||"")}</textarea><textarea id="n8" placeholder="Причина">${esc(d.cause||"")}</textarea><textarea id="n9" placeholder="Последствие">${esc(d.effect||"")}</textarea><textarea id="n10" placeholder="Вывод">${esc(d.conclusion||"")}</textarea>${formButtons("saveBtn")}</div>`);n3.onchange=()=>{let s=db.source.find(x=>x.id===n3.value);if(s&&!n4.value)n4.value=s.data.url||""};saveBtn.onclick=()=>{let obj={date:d.date||todayISO(),title:n1.value,category:n2.value,sourceId:n3.value,link:n4.value,actorIds:[...n5.selectedOptions].map(o=>o.value),importance:n6.value,fact:n7.value,cause:n8.value,effect:n9.value,conclusion:n10.value};it?(it.data=obj,upsertItem(it)):upsertItem(row("news",obj));closeModal();};}
 function openActor(id){let it=id?db.actor.find(x=>x.id===id):null,d=it?.data||{};openModal("Актор",`<div class="form"><div class="three"><select id="a0">${opts(["Персона","Организация","Группа влияния","Институт","Внешний актор"],d.kind)}</select><select id="a1">${opts(["РЮО","Россия","Грузия","Международные организации","Диаспора","Иное"],d.contour||"РЮО")}</select><input id="a2" value="${escAttr(d.name||"")}" placeholder="Имя / название"></div><input id="a3" value="${escAttr(d.role||"")}" placeholder="Должность / роль"><div class="three"><select id="a4">${opts(["Государство","Бизнес","Медиа","Общество","Образование","Культура","Силовой блок","Внешняя политика","Иное"],d.sphere)}</select><input id="a5" type="number" min="0" max="100" value="${d.influence??50}"><select id="a6">${opts(["В работе","Ключевой","Проверить","Архив"],d.status)}</select></div><input id="a7" value="${escAttr(d.resources||"")}" placeholder="Ресурсы"><input id="a8" value="${escAttr(d.links||"")}" placeholder="Связи"><textarea id="a9" placeholder="Заметки">${esc(d.note||"")}</textarea>${formButtons("saveBtn")}</div>`);saveBtn.onclick=()=>{let obj={kind:a0.value,contour:a1.value,name:a2.value,role:a3.value,sphere:a4.value,influence:+a5.value,status:a6.value,resources:a7.value,links:a8.value,note:a9.value};it?(it.data=obj,upsertItem(it)):upsertItem(row("actor",obj));closeModal();};}
-function contourClass(c){if(c==="Россия")return"russia";if(c==="Грузия")return"georgia";if(c==="Международные организации")return"intl";if(c==="Диаспора")return"diaspora";return"ruo"}function nodeHtml(n){let a=db.actor.find(x=>x.id===n.data.actorId),title=n.data.title||a?.data.name||"Узел",contour=a?.data.contour||n.data.contour||"РЮО";return`<div class="node ${contourClass(contour)}" data-id="${n.id}" style="left:${n.data.x||80}px;top:${n.data.y||80}px"><h4>${esc(title)}</h4><p class="label">${esc(contour)} • ${esc(n.data.type||"Позиция")}</p><p>${status("Уровень "+(n.data.level||3),"↕")}</p></div>`}
+function contourClass(c){if(c==="Россия")return"russia";if(c==="Грузия")return"georgia";if(c==="Международные организации")return"intl";if(c==="Диаспора")return"diaspora";return"ruo"}function nodeHtml(n){let a=db.actor.find(x=>x.id===n.data.actorId),title=n.data.title||a?.data.name||"Узел",contour=a?.data.contour||n.data.contour||"РЮО",v=+(a?.data.influence||n.data.influence||0),inf=influenceLevel(v);return`<div class="node ${contourClass(contour)}" data-id="${n.id}" title="${esc(title)}" style="left:${n.data.x||80}px;top:${n.data.y||80}px"><h4>${esc(title)}</h4><p class="label">${esc(contour)}</p><p style="color:${inf.color};font-weight:900">${inf.dot} ${v||"—"}</p></div>`}
 function lineSvg(l){let a=db.node.find(n=>n.id===l.data.from),b=db.node.find(n=>n.id===l.data.to);if(!a||!b)return"";let x1=(+a.data.x||80)+100,y1=(+a.data.y||80)+42,x2=(+b.data.x||80)+100,y2=(+b.data.y||80)+42,w=Math.max(1.5,(+l.data.strength||5)/2);return`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="rgba(243,213,140,.55)" stroke-width="${w}"/><text x="${(x1+x2)/2}" y="${(y1+y2)/2-6}" fill="#f3d58c" font-size="12">${esc(l.data.type)} (${l.data.strength||5}/10)</text>`}
 function addNodeFromActor(actorId){let a=db.actor.find(x=>x.id===actorId),level=a?.data.sphere==="Государство"?2:3;upsertItem(row("node",{actorId,type:a?.data.kind||"Фигура",level,status:"В карте",x:90+db.node.length*25,y:50+level*150}));}
 function openNode(){openModal("Узел карты",`<div class="form"><select id="mn1"><option value="">Без актора</option>${db.actor.map(a=>`<option value="${a.id}">${esc(a.data.name)} — ${esc(a.data.role)}</option>`).join("")}</select><input id="mn2" placeholder="Название узла"><div class="three"><select id="mn3">${opts(["Центр решений","Институт","Ведомство","Фигура","Ресурс","Внешний актор"],"Фигура")}</select><select id="mn4">${opts(["1","2","3","4"],"3")}</select><select id="mn5">${opts(["РЮО","Россия","Грузия","Международные организации","Диаспора"],"РЮО")}</select></div><button class="primary" onclick="let level=+mn4.value;upsertItem(row('node',{actorId:mn1.value,title:mn2.value,type:mn3.value,level,contour:mn5.value,x:90+db.node.length*25,y:50+level*150}));closeModal()">Сохранить</button></div>`)}
 function openLink(){openModal("Связь",`<div class="form"><select id="l1">${db.node.map(n=>`<option value="${n.id}">${esc(n.data.title||db.actor.find(a=>a.id===n.data.actorId)?.data.name||"Узел")}</option>`).join("")}</select><select id="l2">${db.node.map(n=>`<option value="${n.id}">${esc(n.data.title||db.actor.find(a=>a.id===n.data.actorId)?.data.name||"Узел")}</option>`).join("")}</select><select id="l3">${opts(["подчинение","влияние","союз","конфликт","финансирование","коммуникация","неформальная связь"],"влияние")}</select><select id="l4">${opts(["1","2","3","4","5","6","7","8","9","10"],"5")}</select><button class="primary" onclick="if(l1.value&&l2.value&&l1.value!==l2.value)upsertItem(row('link',{from:l1.value,to:l2.value,type:l3.value,strength:+l4.value}));closeModal()">Сохранить</button></div>`)}
 function enableDrag(){document.querySelectorAll(".node").forEach(el=>{el.onmousedown=e=>{dragNode=el;dragDX=e.offsetX;dragDY=e.offsetY}});document.onmousemove=e=>{if(!dragNode||!mapBoard)return;let b=mapBoard.getBoundingClientRect(),id=dragNode.dataset.id,n=db.node.find(x=>x.id===id);n.data.x=Math.max(0,e.clientX-b.left+mapBoard.scrollLeft-dragDX);n.data.y=Math.max(0,e.clientY-b.top+mapBoard.scrollTop-dragDY);dragNode.style.left=n.data.x+"px";dragNode.style.top=n.data.y+"px";lineLayer.innerHTML=db.link.map(l=>lineSvg(l)).join("")};document.onmouseup=()=>{if(dragNode){let id=dragNode.dataset.id,n=db.node.find(x=>x.id===id);upsertItem(n);dragNode=null}}}
+
+function openGeneratePublication(){
+ openModal("Сгенерировать публикацию",`<div class="form"><select id="genType">${opts(["Telegram","VK","Дайджест","Аналитический пост"],"Telegram")}</select><select id="genCount">${opts(["3","5","7"],"5")}</select><button class="primary" onclick="generatePublicationFromBase()">Собрать черновик</button><p class="label">Берутся последние новости из базы. Если новостей нет — появится пустой шаблон.</p></div>`);
+}
+function generatePublicationFromBase(){
+ const type=genType.value;
+ const count=+genCount.value||5;
+ const news=db.news.slice(-count).reverse();
+ let title=(type==="Дайджест"?"Дайджест Южной Осетии":"Публикация по Южной Осетии")+" — "+todayISO();
+ let body="";
+ if(type==="Telegram"){
+   body="Южная Осетия: главное\\n\\n";
+   if(!news.length) body+="Добавь новости в «Информационное поле», и здесь появится черновик поста.\\n";
+   news.forEach((n,i)=>{body+=`${i+1}. ${n.data.title}\\n${n.data.conclusion||n.data.fact||"Вывод не заполнен."}\\n${n.data.link?("Источник: "+n.data.link+"\\n"):""}\\n`;});
+   body+="Итоговый вывод:\\n";
+ } else if(type==="VK"){
+   body="Южная Осетия: обзор повестки\\n\\n";
+   if(!news.length) body+="Пока нет новостей для автоматической сборки.\\n";
+   news.forEach((n,i)=>{body+=`— ${n.data.title}\\n${n.data.fact||""}\\nПочему важно: ${n.data.conclusion||"вывод не заполнен"}\\n\\n`;});
+   body+="Общий вывод:\\n";
+ } else if(type==="Дайджест"){
+   body="Дайджест Южной Осетии\\n\\nГлавные события:\\n";
+   news.forEach((n,i)=>{body+=`${i+1}. ${n.data.title}\\nФакт: ${n.data.fact||""}\\nВывод: ${n.data.conclusion||""}\\n\\n`;});
+   body+="Итоги недели:\\n";
+ } else {
+   body="Аналитический пост\\n\\nТема:\\n\\nФакты:\\n";
+   news.forEach((n,i)=>{body+=`${i+1}. ${n.data.title} — ${n.data.fact||""}\\n`;});
+   body+="\\nПричины:\\n\\nПоследствия:\\n\\nВывод:\\n";
+ }
+ upsertItem(row("product",{date:todayISO(),title,type,status:"Черновик",body}));
+ closeModal();
+ setPage("media");
+}
+
 function openProduct(id){let it=id?db.product.find(x=>x.id===id):null,d=it?.data||{};openModal("Продукт",`<div class="form"><input id="p1" value="${escAttr(d.title||"")}" placeholder="Название"><div class="two"><select id="p2">${opts(["Telegram","VK","Дайджест","Записка","Карточка актора"],d.type)}</select><select id="p3">${opts(["Черновик","Готово","Опубликовано"],d.status||"Черновик")}</select></div><textarea id="p4" style="min-height:250px">${esc(d.body||"")}</textarea>${formButtons("saveBtn")}</div>`);saveBtn.onclick=()=>{let obj={date:d.date||todayISO(),title:p1.value,type:p2.value,status:p3.value,body:p4.value};it?(it.data=obj,upsertItem(it)):upsertItem(row("product",obj));closeModal();};}
 function productFromNews(id){let n=db.news.find(x=>x.id===id);upsertItem(row("product",{date:todayISO(),title:"Пост: "+n.data.title,type:"Telegram",status:"Черновик",body:`${n.data.title}\n\nФакт: ${n.data.fact||""}\n\nПочему важно: ${n.data.conclusion||""}\n\nИсточник: ${n.data.link||""}`}));setPage("media")}
 function createDigest(){let ns=db.news.slice(-7);upsertItem(row("product",{date:todayISO(),title:"Дайджест Южной Осетии — "+todayISO(),type:"Дайджест",status:"Черновик",body:`Дайджест Южной Осетии\n\n${ns.map((n,i)=>`${i+1}. ${n.data.title}\nФакт: ${n.data.fact||""}\nВывод: ${n.data.conclusion||""}`).join("\n\n")}\n\nИтоговый вывод:\n`}));setPage("media")}
@@ -346,18 +724,7 @@ async function exportMapPNG(){setPage("map");setTimeout(async()=>{let el=documen
 function exportJSON(){let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="tskhorbatae-sync-backup.json";a.click()}function importJSON(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{db=JSON.parse(r.result);saveLocal();render()};r.readAsText(f)}
 function exportExcel(){let wb=XLSX.utils.book_new();for(const t of types){XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(db[t].map(x=>({id:x.id,...x.data}))),t)}XLSX.writeFile(wb,"tskhorbatae-sync.xlsx")}
 function exportPortfolioMarkdown(){let md="# Портфолио TSKHORBATÆ\n\n"+db.portfolio.map(p=>`## ${p.data.title}\n\n${p.data.date} · ${p.data.type}\n\n${p.data.body}`).join("\n\n---\n\n");let blob=new Blob([md],{type:"text/markdown"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="tskhorbatae-portfolio.md";a.click()}
-
-function generatePublication(){
- let news=db.news.slice(-5).reverse();
- let text="Дайджест Южной Осетии\n\n";
- news.forEach((n,i)=>{
-   text+=`${i+1}. ${n.data.title}\n${n.data.conclusion||n.data.fact||""}\n\n`;
- });
- upsertItem(row("product",{date:todayISO(),title:"Автопост",type:"Telegram",status:"Черновик",body:text}));
- setPage("media");
-}
-
-initDefaults();initNav();initSupabase();initAuth();setPage("dashboard");render();
+initDefaults();ensureDailyTasks(todayISO());initNav();initSupabase();initAuth();setPage("dashboard");render();
 </script>
 </body>
 </html>

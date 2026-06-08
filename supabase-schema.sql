@@ -1,4 +1,4 @@
--- Supabase schema for TSKHORBATÆ
+-- Supabase schema for TSKHORBATÆ 2.0
 create extension if not exists "pgcrypto";
 
 create table if not exists public.items (
