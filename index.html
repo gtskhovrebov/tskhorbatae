@@ -1136,6 +1136,129 @@ html[data-theme="light"] .contour-pill{
   }
 }
 
+
+/* ---------- 3.2 Expandable progress cards ---------- */
+.progress-dashboard{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:14px!important;
+}
+.progress-panel{
+  cursor:pointer;
+  user-select:none;
+}
+.progress-panel:hover{
+  transform:translateY(-2px);
+}
+.progress-panel.expanded{
+  border-color:rgba(217,163,60,.42)!important;
+  box-shadow:0 22px 70px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+html[data-theme="light"] .progress-panel.expanded{
+  box-shadow:0 22px 64px rgba(80,48,18,.13), inset 0 1px 0 rgba(255,255,255,.78)!important;
+}
+.progress-top{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:16px;
+  align-items:center;
+}
+.progress-summary{
+  display:grid;
+  gap:8px;
+}
+.progress-summary h4{
+  margin:0;
+  font-size:20px;
+  line-height:1.1;
+  color:var(--text);
+}
+.progress-summary p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.35;
+}
+.progress-kpi{
+  text-align:right;
+}
+.progress-kpi b{
+  display:block;
+  font-size:42px;
+  line-height:1;
+  letter-spacing:-.06em;
+  color:var(--text);
+}
+.progress-kpi span{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+}
+.progress-details{
+  display:none;
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid var(--stroke);
+}
+.progress-panel.expanded .progress-details{
+  display:grid;
+  gap:12px;
+  animation:detailsIn .22s ease-out;
+}
+@keyframes detailsIn{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1;transform:none}
+}
+.detail-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:10px;
+}
+.detail-cell{
+  padding:12px;
+  border-radius:18px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.035);
+}
+html[data-theme="light"] .detail-cell{
+  background:#fff8ef;
+}
+.detail-cell b{
+  display:block;
+  font-size:22px;
+  line-height:1;
+  color:var(--text);
+}
+.detail-cell span{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+}
+.expand-hint{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+}
+.progress-track-xl{
+  margin-top:12px;
+}
+@media(max-width:980px){
+  .progress-top{
+    grid-template-columns:1fr;
+  }
+  .progress-kpi{
+    text-align:left;
+  }
+  .detail-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1372,6 +1495,7 @@ function renderSection(id){ if(typeof resetCharts==="function") resetCharts();ch
 function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card"><h3>1. Supabase: подключение</h3><div class="form"><input id="sbUrl" placeholder="Supabase Project URL" value="${escAttr(cfg.url||"")}"><input id="sbAnon" placeholder="Supabase anon public key" value="${escAttr(cfg.anonKey||"")}"><button class="primary" onclick="cfg.url=sbUrl.value.trim();cfg.anonKey=sbAnon.value.trim();localStorage.setItem(CONFIG_KEY,JSON.stringify(cfg));initSupabase();initAuth();alert('Сохранено')">Сохранить подключение</button></div></div><div class="card"><h3>2. Аккаунт</h3><div class="form"><input id="authEmail" placeholder="Email"><input id="authPassword" type="password" placeholder="Пароль"><button class="primary" onclick="signIn()">Войти</button><button onclick="signUp()">Создать аккаунт</button><button class="danger" onclick="signOut()">Выйти</button></div><p class="label">Войди под одной почтой на MacBook и iPhone — база будет общей.</p></div><div class="card"><h3>3. Синхронизация</h3><button class="primary" onclick="pushAll()">Отправить локальное в облако</button> <button onclick="pullAll()">Загрузить из облака</button><p class="label">Если работал офлайн, нажми «Отправить локальное в облако».</p></div></div>`}
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
 
+
 function pctVal(value,target){
  value=Number(value||0); target=Number(target||0);
  if(!target) return 0;
@@ -1379,40 +1503,46 @@ function pctVal(value,target){
 }
 function progressDashboardHTML(){
  const items=[
-  ["Слова",db.word.length,1000],
-  ["Источники",db.source.length,100],
-  ["Новости",db.news.length,500],
-  ["Акторы",db.actor.length,150],
-  ["Продукты",db.product.length,30]
+  ["Слова",db.word.length,1000,"Осетинский словарь и языковая база"],
+  ["Источники",db.source.length,100,"СМИ, официальные сайты, каналы, эксперты"],
+  ["Новости",db.news.length,500,"События, факты, повестка"],
+  ["Акторы",db.actor.length,150,"Люди, институты, внешние игроки"],
+  ["Продукты",db.product.length,30,"Дайджесты, записки, публикации"]
  ];
  const avg=Math.round(items.reduce((s,x)=>s+pctVal(x[1],x[2]),0)/items.length);
- const list=items.map(([label,val,target])=>{
+ const bars=items.map(([label,val,target,desc])=>{
    const p=pctVal(val,target);
    return `<div class="progress-item">
     <div class="progress-row"><span>${label}</span><span>${val}/${target} · ${p}%</span></div>
     <div class="progress-track-xl"><div class="progress-fill-xl" style="width:${p}%"></div></div>
    </div>`;
  }).join("");
- const contours=["РЮО","Россия","Грузия","Межд.","Диаспора"];
- const contourHTML=contours.map(c=>{
-   const n=db.actor.filter(a=>a.data.contour===c).length;
-   return `<div class="contour-pill"><b>${n}</b><span>${c}</span></div>`;
+ const cells=items.map(([label,val,target,desc])=>{
+   const p=pctVal(val,target);
+   return `<div class="detail-cell"><b>${p}%</b><span>${label}: ${val}/${target}<br>${desc}</span></div>`;
  }).join("");
+ const remaining=items.map(([label,val,target])=>`${label}: ${Math.max(0,target-val)}`).join(" · ");
  return `<div class="progress-dashboard">
-   <div class="card progress-panel">
-    <div class="native-chart-head"><div><h4 class="native-chart-title">Прогресс базы</h4><p class="native-chart-sub">Сколько уже собрано от целевого объёма</p></div></div>
-    <div class="progress-list">${list}</div>
-    <div class="progress-note">Цель — не просто накопить данные, а собрать рабочую базу для анализа Южной Осетии: язык, источники, новости, акторы и готовые материалы.</div>
-   </div>
-   <div class="card progress-panel">
-    <div class="native-chart-head"><div><h4 class="native-chart-title">Общий прогресс</h4><p class="native-chart-sub">Средний процент выполнения по базе</p></div></div>
-    <div class="ring-wrap"><div class="big-ring" style="--p:${avg}%"><div class="big-ring-content"><b>${avg}%</b><span>к цели января 2027</span></div></div></div>
-    <div class="contour-grid">${contourHTML}</div>
+   <div class="card progress-panel" onclick="this.classList.toggle('expanded')">
+    <div class="progress-top">
+      <div class="progress-summary">
+        <h4>Прогресс базы</h4>
+        <p>Показывает, насколько заполнена твоя аналитическая система по Южной Осетии: язык, источники, новости, акторы и готовые продукты.</p>
+      </div>
+      <div class="progress-kpi"><b>${avg}%</b><span>общий прогресс</span></div>
+    </div>
+    <div class="progress-list">${bars}</div>
+    <div class="expand-hint">Нажми на карточку, чтобы раскрыть подробности.</div>
+    <div class="progress-details">
+      <div class="detail-grid">${cells}</div>
+      <div class="progress-note">Осталось до целевого объёма: ${remaining}.</div>
+    </div>
    </div>
  </div>`;
 }
 
-function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Диаграммы прогресса</h3></div><div class="grid cols2"><div class="card chart-card"><canvas id="goalChart"></canvas></div><div class="card chart-card"><canvas id="contourChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
+
+function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Прогресс системы</h3></div><div class="grid cols2"><div class="card chart-card"><canvas id="goalChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
  /* progress dashboard: no chart canvas */
  /* progress dashboard: no chart canvas */
 }
