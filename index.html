@@ -544,6 +544,163 @@ main{overflow-x:hidden}
   .more-btn{min-height:50px!important;font-size:13px!important}
 }
 
+
+/* ---------- 2.4 Light Theme Fix ---------- */
+html[data-theme="light"]{
+  --bg:#f7f1e8!important;
+  --panel:#fbf7ef!important;
+  --card:#ffffff!important;
+  --card2:#fffaf3!important;
+  --stroke:#e2d5c5!important;
+  --gold:#c98b2e!important;
+  --gold2:#8a5b1d!important;
+  --text:#21170f!important;
+  --muted:#6e6258!important;
+}
+html[data-theme="light"] body{
+  color:#21170f!important;
+  background:radial-gradient(circle at 18% 0%,rgba(201,139,46,.13),transparent 28%),linear-gradient(180deg,#f7f1e8,#fffaf3 52%,#f0e5d5)!important;
+}
+html[data-theme="light"] main{background:transparent!important}
+html[data-theme="light"] .topbar{
+  background:linear-gradient(180deg,rgba(251,247,239,.98),rgba(251,247,239,.88))!important;
+  border-bottom:1px solid #e2d5c5!important;
+}
+html[data-theme="light"] .title h2,
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] b{color:#21170f!important}
+html[data-theme="light"] .title p,
+html[data-theme="light"] p,
+html[data-theme="light"] .label,
+html[data-theme="light"] small{color:#6e6258!important}
+html[data-theme="light"] .card,
+html[data-theme="light"] .metric,
+html[data-theme="light"] .task-row,
+html[data-theme="light"] .day,
+html[data-theme="light"] .mini-card,
+html[data-theme="light"] .exam-question,
+html[data-theme="light"] .modalbox{
+  background:linear-gradient(180deg,#ffffff,#fffaf3)!important;
+  color:#21170f!important;
+  border:1px solid #e2d5c5!important;
+  box-shadow:0 12px 36px rgba(75,45,12,.08)!important;
+}
+html[data-theme="light"] .metric{color:#21170f!important}
+html[data-theme="light"] .metric small{color:#76685d!important}
+html[data-theme="light"] input,
+html[data-theme="light"] select,
+html[data-theme="light"] textarea{
+  background:#ffffff!important;
+  color:#21170f!important;
+  border:1px solid #d9cbbb!important;
+}
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder{color:#9a8d82!important}
+html[data-theme="light"] table{color:#21170f!important}
+html[data-theme="light"] th{
+  color:#8a5b1d!important;
+  border-bottom:1px solid #e2d5c5!important;
+}
+html[data-theme="light"] td{
+  color:#21170f!important;
+  border-bottom:1px solid #efe5da!important;
+}
+html[data-theme="light"] tr,
+html[data-theme="light"] tbody{background:transparent!important}
+html[data-theme="light"] .status,
+html[data-theme="light"] .influence-rank{
+  background:#fff4df!important;
+  color:#5b3a12!important;
+  border-color:#e1bc75!important;
+}
+html[data-theme="light"] .evidence{
+  background:#fff4df!important;
+  color:#392515!important;
+  border-color:#e2d5c5!important;
+}
+html[data-theme="light"] .theme-toggle{
+  background:#fffaf3!important;
+  border:1px solid #ded1c2!important;
+}
+html[data-theme="light"] .theme-btn{color:#4d392a!important}
+html[data-theme="light"] .theme-btn.active{
+  background:linear-gradient(135deg,#d09230,#ffe39a)!important;
+  color:#1d1208!important;
+}
+html[data-theme="light"] .pill{
+  background:#ffffff!important;
+  color:#6a5c50!important;
+  border:1px solid #ded1c2!important;
+}
+html[data-theme="light"] .sync-ok{
+  color:#1f7a3a!important;
+  border-color:#8fd19e!important;
+  background:#f1fff3!important;
+}
+html[data-theme="light"] .sync-local{
+  color:#8a5b1d!important;
+  border-color:#e1bc75!important;
+  background:#fff8e7!important;
+}
+html[data-theme="light"] .mobile-bottom-nav{
+  background:rgba(255,250,243,.94)!important;
+  border:1px solid #dfd1c1!important;
+  box-shadow:0 18px 55px rgba(75,45,12,.16)!important;
+}
+html[data-theme="light"] .bottom-btn{color:#6e6258!important}
+html[data-theme="light"] .bottom-btn.active{
+  background:linear-gradient(135deg,#d09230,#ffe39a)!important;
+  color:#1d1208!important;
+}
+html[data-theme="light"] .mobile-more-panel{
+  background:rgba(255,250,243,.96)!important;
+  border:1px solid #dfd1c1!important;
+}
+html[data-theme="light"] .more-btn{
+  color:#21170f!important;
+  background:#ffffff!important;
+  border:1px solid #e2d5c5!important;
+}
+html[data-theme="light"] .map-board{
+  background:#fffaf3!important;
+  border:1px solid #e2d5c5!important;
+}
+html[data-theme="light"] .lane{
+  color:#8a5b1d!important;
+  border-top-color:#dfd1c1!important;
+}
+html[data-theme="light"] .node{
+  background:#ffffff!important;
+  color:#21170f!important;
+  border:1px solid #d8c8b7!important;
+  box-shadow:0 10px 24px rgba(75,45,12,.10)!important;
+}
+html[data-theme="light"] .node h4{color:#21170f!important}
+html[data-theme="light"] .node p{color:#6e6258!important}
+html[data-theme="light"] .line-layer line,
+html[data-theme="light"] svg line{stroke:#8a5b1d!important}
+html[data-theme="light"] .section-title h3{color:#21170f!important}
+html[data-theme="light"] button.danger{
+  color:#8b1d1d!important;
+  border-color:#e3b0a8!important;
+  background:#fff3f0!important;
+}
+html[data-theme="light"] button.primary,
+html[data-theme="light"] .primary{color:#1d1208!important}
+@media(max-width:980px){
+  html[data-theme="light"] body{
+    background:radial-gradient(circle at 20% 0%,rgba(201,139,46,.13),transparent 30%),linear-gradient(180deg,#f7f1e8,#fffaf3 55%,#f0e5d5)!important;
+  }
+  html[data-theme="light"] .topbar{
+    background:linear-gradient(180deg,rgba(251,247,239,.98),rgba(251,247,239,.91))!important;
+  }
+  html[data-theme="light"] .card,
+  html[data-theme="light"] .metric{background:linear-gradient(180deg,#ffffff,#fff8ef)!important}
+}
+
 </style>
 </head>
 <body>
