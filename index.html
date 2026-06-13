@@ -765,6 +765,83 @@ html[data-theme="dark"] .card,html[data-theme="dark"] .metric{background:linear-
 html[data-theme="dark"] .chart-card{background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04))!important}
 @media(max-width:980px){.title h2{font-size:29px!important}.title p{font-size:14px!important}.theme-btn{font-size:12px!important;padding:8px 10px!important}.pill{font-size:12px!important;padding:8px 10px!important}}
 
+
+/* ---------- 2.7 Background + Chart hard fix ---------- */
+html[data-theme="light"],
+html[data-theme="light"] body,
+html[data-theme="light"] .app,
+html[data-theme="light"] main{
+  background:#f4eadc!important;
+  background-image:
+    radial-gradient(circle at 10% 0%,rgba(201,139,46,.13),transparent 28%),
+    linear-gradient(180deg,#f4eadc 0%,#fff7ed 45%,#f1e4d3 100%)!important;
+  color:#23170e!important;
+}
+html[data-theme="dark"],
+html[data-theme="dark"] body,
+html[data-theme="dark"] .app,
+html[data-theme="dark"] main{
+  background:#080504!important;
+  background-image:
+    radial-gradient(circle at 12% 0%,rgba(217,163,60,.10),transparent 28%),
+    radial-gradient(circle at 90% 10%,rgba(90,24,14,.28),transparent 35%),
+    linear-gradient(135deg,#080504 0%,#130805 58%,#050403 100%)!important;
+}
+html[data-theme="light"] .topbar{
+  background:rgba(244,234,220,.92)!important;
+  border-bottom:1px solid #dacbb8!important;
+}
+html[data-theme="dark"] .topbar{
+  background:rgba(8,5,4,.72)!important;
+  border-bottom:1px solid rgba(255,255,255,.12)!important;
+}
+html[data-theme="light"] aside{
+  background:rgba(244,234,220,.68)!important;
+}
+html[data-theme="dark"] aside{
+  background:rgba(8,5,4,.62)!important;
+}
+.chart-card{
+  height:340px!important;
+  min-height:340px!important;
+}
+.chart-card canvas{
+  display:block!important;
+  width:100%!important;
+  height:300px!important;
+  max-height:300px!important;
+}
+html[data-theme="light"] .chart-card{
+  background:#fffdf8!important;
+}
+html[data-theme="dark"] .chart-card{
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035))!important;
+}
+html[data-theme="light"] .metric,
+html[data-theme="light"] .card,
+html[data-theme="light"] .task-row,
+html[data-theme="light"] .day{
+  background:#fffdf8!important;
+}
+html[data-theme="dark"] .metric,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .task-row,
+html[data-theme="dark"] .day{
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035))!important;
+}
+html[data-theme="light"] .theme-toggle,
+html[data-theme="light"] .pill{
+  background:#fffdf8!important;
+}
+@media(max-width:980px){
+  html[data-theme="light"] .topbar{
+    background:rgba(244,234,220,.94)!important;
+  }
+  html[data-theme="dark"] .topbar{
+    background:rgba(8,5,4,.84)!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -845,7 +922,7 @@ function setTheme(t){
  const l=document.getElementById("themeLightBtn");
  if(d&&l){d.classList.toggle("active",t==="dark");l.classList.toggle("active",t==="light");}
  applyChartTheme();
- setTimeout(()=>{try{renderSection(document.querySelector(".section.active")?.id||"dashboard")}catch(e){}},30);
+ setTimeout(()=>{try{renderSection(document.querySelector(".section.active")?.id||"dashboard"); if((document.querySelector(".section.active")?.id||"dashboard")==="dashboard") tskRenderCharts();}catch(e){}},30);
 }
 (function(){setTheme(localStorage.getItem("tsk_theme")||"dark");})();
 const OS_ALPHABET=["Все","А","Ӕ","Б","В","Г","Гъ","Д","Дз","Дж","Е","Ё","Ж","З","И","Й","К","Къ","Л","М","Н","О","П","Пъ","Р","С","Т","Тъ","У","Ф","Х","Хъ","Ц","Цъ","Ч","Чъ","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"];
@@ -1015,7 +1092,8 @@ function setPage(id){
  renderSection(id);
 }
 function render(){setTheme(localStorage.getItem("tsk_theme")||"dark");renderSection(document.querySelector(".section.active")?.id||"dashboard")}
-function renderSection(id){charts.forEach(c=>c.destroy());charts=[];({dashboard:renderDashboard,plan:renderPlan,calendar:renderCalendar,exam:renderExam,language:renderLanguage,monitoring:renderMonitoring,actors:renderActors,map:renderMap,analysis:renderAnalysis,media:renderMedia,portfolio:renderPortfolio,dataExport:renderExport,setup:renderSetup}[id]||renderDashboard)()}
+function renderSection(id){charts.forEach(c=>c.destroy());charts=[];({dashboard:renderDashboard,plan:renderPlan,calendar:renderCalendar,exam:renderExam,language:renderLanguage,monitoring:renderMonitoring,actors:renderActors,map:renderMap,analysis:renderAnalysis,media:renderMedia,portfolio:renderPortfolio,dataExport:renderExport,setup:renderSetup}[id]||renderDashboard)();
+ if(id==="dashboard") setTimeout(tskRenderCharts,60)}
 function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card"><h3>1. Supabase: подключение</h3><div class="form"><input id="sbUrl" placeholder="Supabase Project URL" value="${escAttr(cfg.url||"")}"><input id="sbAnon" placeholder="Supabase anon public key" value="${escAttr(cfg.anonKey||"")}"><button class="primary" onclick="cfg.url=sbUrl.value.trim();cfg.anonKey=sbAnon.value.trim();localStorage.setItem(CONFIG_KEY,JSON.stringify(cfg));initSupabase();initAuth();alert('Сохранено')">Сохранить подключение</button></div></div><div class="card"><h3>2. Аккаунт</h3><div class="form"><input id="authEmail" placeholder="Email"><input id="authPassword" type="password" placeholder="Пароль"><button class="primary" onclick="signIn()">Войти</button><button onclick="signUp()">Создать аккаунт</button><button class="danger" onclick="signOut()">Выйти</button></div><p class="label">Войди под одной почтой на MacBook и iPhone — база будет общей.</p></div><div class="card"><h3>3. Синхронизация</h3><button class="primary" onclick="pushAll()">Отправить локальное в облако</button> <button onclick="pullAll()">Загрузить из облака</button><p class="label">Если работал офлайн, нажми «Отправить локальное в облако».</p></div></div>`}
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
 
@@ -1045,6 +1123,73 @@ function chartOptions(){
 function doughnutOptions(){
  const c=chartTextColor();
  return {responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{legend:{labels:{color:c,font:{weight:"800",size:13},boxWidth:28,boxHeight:10,padding:12}}}};
+}
+
+
+function tskChartColors(){
+ const light=document.documentElement.getAttribute("data-theme")==="light";
+ return light ? {
+   text:"#23170e", grid:"rgba(80,56,28,.20)",
+   fact:"#9f6b28", goal:"#e4c47a",
+   ruo:"#2f7fbf", russia:"#b64d6a", georgia:"#d0832d", intl:"#b58a2d", diaspora:"#3b9991",
+   border:"#fffdf8"
+ } : {
+   text:"#fff7ed", grid:"rgba(255,255,255,.14)",
+   fact:"#f3d58c", goal:"rgba(243,213,140,.28)",
+   ruo:"#4fb0ff", russia:"#ff6f91", georgia:"#ffae52", intl:"#ffd166", diaspora:"#56c7c0",
+   border:"#15100c"
+ };
+}
+function tskRenderCharts(){
+ if(typeof Chart==="undefined") return;
+ const bar=document.getElementById("barChart");
+ const donut=document.getElementById("donutChart");
+ if(!bar || !donut) return;
+ const c=tskChartColors();
+ Chart.defaults.color=c.text;
+ Chart.defaults.borderColor=c.grid;
+
+ if(window.tskBarChart){try{window.tskBarChart.destroy()}catch(e){}}
+ if(window.tskDonutChart){try{window.tskDonutChart.destroy()}catch(e){}}
+
+ window.tskBarChart=new Chart(bar,{
+   type:"bar",
+   data:{
+     labels:["Слова","Источники","Новости","Акторы","Продукты"],
+     datasets:[
+       {label:"Факт",data:[db.word.length,db.source.length,db.news.length,db.actor.length,db.product.length],backgroundColor:c.fact,borderColor:c.fact,borderWidth:1,borderRadius:8},
+       {label:"Цель",data:[1000,100,500,150,30],backgroundColor:c.goal,borderColor:c.goal,borderWidth:1,borderRadius:8}
+     ]
+   },
+   options:{
+     responsive:true,
+     maintainAspectRatio:false,
+     plugins:{legend:{labels:{color:c.text,font:{weight:"800",size:13},boxWidth:30,boxHeight:10,padding:14}}},
+     scales:{
+       x:{ticks:{color:c.text,font:{weight:"800",size:12}},grid:{color:c.grid}},
+       y:{ticks:{color:c.text,font:{weight:"800",size:12}},grid:{color:c.grid}}
+     }
+   }
+ });
+
+ window.tskDonutChart=new Chart(donut,{
+   type:"doughnut",
+   data:{
+     labels:["РЮО","Россия","Грузия","Межд.","Диаспора"],
+     datasets:[{
+       data:["РЮО","Россия","Грузия","Межд.","Диаспора"].map(x=>db.actor.filter(a=>a.data.contour===x).length || 0.001),
+       backgroundColor:[c.ruo,c.russia,c.georgia,c.intl,c.diaspora],
+       borderColor:c.border,
+       borderWidth:3
+     }]
+   },
+   options:{
+     responsive:true,
+     maintainAspectRatio:false,
+     cutout:"58%",
+     plugins:{legend:{labels:{color:c.text,font:{weight:"800",size:13},boxWidth:30,boxHeight:10,padding:14}}}
+   }
+ });
 }
 
 function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Диаграммы прогресса</h3></div><div class="grid cols2"><div class="card"><canvas id="goalChart"></canvas></div><div class="card"><canvas id="contourChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
