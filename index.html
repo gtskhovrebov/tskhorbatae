@@ -956,351 +956,76 @@ button:active, .bottom-btn:active {
 }
 
 
-/* ---------- 3.1 Progress + modern typography ---------- */
-:root{
-  --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Segoe UI",Roboto,Arial,sans-serif;
-}
+/* ---------- 3.4 Dashboard hardfix ---------- */
 html,body,button,input,textarea,select{
-  font-family:var(--font-ui)!important;
-  font-feature-settings:"ss01","ss02","kern"!important;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Segoe UI",Roboto,Arial,sans-serif!important;
   -webkit-font-smoothing:antialiased!important;
-  text-rendering:geometricPrecision!important;
 }
 h1,h2,h3,h4,.title h2,.metric strong{
-  font-family:var(--font-ui)!important;
   letter-spacing:-.045em!important;
 }
-p,.label,.muted,small,button,input,textarea,select,td,th{
-  letter-spacing:-.015em!important;
+.app{height:100vh!important;max-height:100vh!important;overflow:hidden!important}
+main{height:100vh!important;max-height:100vh!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important}
+aside{height:100vh!important;max-height:100vh!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;padding-bottom:140px!important}
+aside::-webkit-scrollbar,main::-webkit-scrollbar{width:8px}
+aside::-webkit-scrollbar-thumb,main::-webkit-scrollbar-thumb{background:rgba(217,163,60,.30);border-radius:999px}
+html[data-theme="dark"] body,html[data-theme="dark"] .app,html[data-theme="dark"] main{
+ background-color:#080504!important;
+ background-image:radial-gradient(circle at var(--mx,18%) var(--my,10%),rgba(217,163,60,.14),transparent 26%),radial-gradient(circle at 88% 8%,rgba(93,24,14,.32),transparent 34%),linear-gradient(135deg,#070403 0%,#130704 58%,#050302 100%)!important;
 }
-.progress-dashboard{
-  display:grid;
-  grid-template-columns:1.05fr .95fr;
-  gap:14px;
-  margin-top:10px;
+html[data-theme="light"] body,html[data-theme="light"] .app,html[data-theme="light"] main{
+ background-color:#f4eadc!important;
+ background-image:radial-gradient(circle at var(--mx,18%) var(--my,10%),rgba(201,139,46,.16),transparent 28%),radial-gradient(circle at 88% 4%,rgba(115,73,25,.08),transparent 34%),linear-gradient(135deg,#f4eadc 0%,#fff8ee 54%,#efe0cc 100%)!important;
 }
-.progress-panel{
-  min-height:350px;
+body::before{
+ content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(115deg,transparent 0 48%,rgba(217,163,60,.07) 49%,transparent 52%),repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 44px);
+ opacity:.5;animation:tskBgFloat 14s ease-in-out infinite alternate;
 }
-.progress-list{
-  display:grid;
-  gap:12px;
-  margin-top:14px;
-}
-.progress-item{
-  display:grid;
-  gap:7px;
-}
-.progress-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  font-size:13px;
-  font-weight:800;
-}
-.progress-row span:first-child{
-  color:var(--text);
-}
-.progress-row span:last-child{
-  color:var(--muted);
-}
-.progress-track-xl{
-  height:13px;
-  border-radius:999px;
-  background:rgba(255,255,255,.10);
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-}
-html[data-theme="light"] .progress-track-xl{
-  background:#eadcc9;
-  border-color:#dfd0bd;
-}
-.progress-fill-xl{
-  height:100%;
-  border-radius:999px;
-  width:0%;
-  background:linear-gradient(90deg,#b7781d,#f3d58c);
-  box-shadow:0 0 18px rgba(217,163,60,.25);
-  transition:width .42s cubic-bezier(.2,.8,.2,1);
-}
-.progress-note{
-  margin-top:14px;
-  padding:12px 14px;
-  border-radius:18px;
-  border:1px solid var(--stroke);
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.35;
-  background:rgba(255,255,255,.035);
-}
-html[data-theme="light"] .progress-note{
-  background:#fff8ef;
-}
-.ring-wrap{
-  display:grid;
-  place-items:center;
-  min-height:286px;
-}
-.big-ring{
-  width:230px;
-  height:230px;
-  border-radius:50%;
-  position:relative;
-  display:grid;
-  place-items:center;
-  background:conic-gradient(#f3d58c var(--p,0%), rgba(255,255,255,.11) 0);
-  box-shadow:0 22px 60px rgba(0,0,0,.22), inset 0 0 0 1px var(--stroke);
-}
-html[data-theme="light"] .big-ring{
-  background:conic-gradient(#c98b2e var(--p,0%), #eadcc9 0);
-  box-shadow:0 22px 50px rgba(80,48,18,.12), inset 0 0 0 1px #decfbd;
-}
-.big-ring::after{
-  content:"";
-  position:absolute;
-  inset:22px;
-  border-radius:50%;
-  background:var(--panel);
-  border:1px solid var(--stroke);
-}
-html[data-theme="light"] .big-ring::after{
-  background:#fffaf3;
-}
-.big-ring-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
-.big-ring-content b{
-  display:block;
-  font-size:44px;
-  line-height:1;
-  letter-spacing:-.06em;
-  color:var(--text);
-}
-.big-ring-content span{
-  display:block;
-  margin-top:8px;
-  color:var(--muted);
-  font-size:13px;
-  font-weight:800;
-}
-.contour-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:18px;
-}
-.contour-pill{
-  padding:12px 10px;
-  border-radius:18px;
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.04);
-  min-width:0;
-}
-html[data-theme="light"] .contour-pill{
-  background:#fff8ef;
-}
-.contour-pill b{
-  display:block;
-  font-size:20px;
-  line-height:1;
-  color:var(--text);
-}
-.contour-pill span{
-  display:block;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:11px;
-  font-weight:800;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.metric strong{
-  font-weight:900!important;
-}
-.theme-btn,.pill,button,.navbtn{
-  font-weight:800!important;
-}
+@keyframes tskBgFloat{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-12px,0) scale(1.012)}}
+html[data-theme="light"] body::before{opacity:.25}
+.metric{min-height:112px!important;padding:18px!important;display:flex!important;flex-direction:column!important;justify-content:space-between!important;gap:12px!important;position:relative!important;overflow:hidden!important}
+.metric::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 0%,rgba(217,163,60,.13),transparent 38%);pointer-events:none}
+.metric::after,.metric-progress{display:none!important}
+.metric small{position:relative;z-index:1;color:var(--muted)!important;font-size:13px!important;line-height:1.2!important;margin:0!important}
+.metric strong{position:relative;z-index:1;font-size:36px!important;line-height:1!important;font-weight:900!important;color:var(--text)!important;white-space:nowrap!important}
+.metric-track,.progress-line{height:7px;border-radius:999px;background:rgba(255,255,255,.11);overflow:hidden}
+html[data-theme="light"] .metric-track,html[data-theme="light"] .progress-line{background:#eadcc9}
+.metric-track i,.progress-line i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#b7781d,#f3d58c)}
+html[data-theme="dark"] .card,html[data-theme="dark"] .metric{background:linear-gradient(135deg,rgba(255,255,255,.078),rgba(255,255,255,.035))!important;border:1px solid rgba(255,255,255,.13)!important;box-shadow:0 20px 60px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04)!important}
+html[data-theme="light"] .card,html[data-theme="light"] .metric{background:linear-gradient(180deg,#fffdf8,#fff6eb)!important;border:1px solid #decfbd!important;box-shadow:0 18px 46px rgba(80,48,18,.10),inset 0 1px 0 rgba(255,255,255,.72)!important;color:#21170f!important}
+.grid.cols6{grid-template-columns:repeat(6,minmax(118px,1fr))!important}
+@media(max-width:1180px){.grid.cols6{grid-template-columns:repeat(3,1fr)!important}}
+.progress-master{cursor:pointer;user-select:none}
+.progress-master:hover{transform:translateY(-2px)}
+.progress-master.expanded{border-color:rgba(217,163,60,.46)!important}
+.progress-master-top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.progress-master-top h3{margin:0;font-size:22px;color:var(--text)}
+.progress-master-top p{margin:8px 0 0;color:var(--muted);line-height:1.35}
+.progress-main-number{text-align:right}
+.progress-main-number b{display:block;font-size:52px;line-height:1;letter-spacing:-.06em;color:var(--text)}
+.progress-main-number span{display:block;margin-top:6px;color:var(--muted);font-size:12px;font-weight:800}
+.progress-bars{display:grid;gap:13px;margin-top:20px}
+.progress-row-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:7px;font-size:13px}
+.progress-row-head b{color:var(--text)}
+.progress-row-head span{color:var(--muted);font-weight:800}
+.progress-hidden{display:none;margin-top:18px;padding-top:16px;border-top:1px solid var(--stroke)}
+.progress-master.expanded .progress-hidden{display:block;animation:detailsIn .22s ease-out}
+@keyframes detailsIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.progress-detail-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.progress-detail-cell{padding:12px;border-radius:18px;border:1px solid var(--stroke);background:rgba(255,255,255,.035)}
+html[data-theme="light"] .progress-detail-cell{background:#fff8ef}
+.progress-detail-cell b{display:block;font-size:22px;color:var(--text)}
+.progress-detail-cell span{display:block;margin-top:6px;color:var(--muted);font-size:12px;font-weight:800;line-height:1.35}
+.progress-note{margin-top:12px;padding:12px 14px;border-radius:18px;border:1px solid var(--stroke);color:var(--muted);font-size:13px;line-height:1.35;background:rgba(255,255,255,.035)}
 @media(max-width:980px){
-  .progress-dashboard{
-    grid-template-columns:1fr;
-  }
-  .big-ring{
-    width:210px;
-    height:210px;
-  }
-  .contour-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-
-/* ---------- 3.3 Progress Fixed ---------- */
-.progress-dashboard{
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  gap:14px!important;
-}
-.progress-panel{
-  cursor:pointer;
-  user-select:none;
-  min-height:auto!important;
-}
-.progress-panel:hover{
-  transform:translateY(-2px);
-}
-.progress-panel.expanded{
-  border-color:rgba(217,163,60,.42)!important;
-}
-.progress-top{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:16px;
-  align-items:center;
-}
-.progress-summary h4{
-  margin:0;
-  font-size:20px;
-  line-height:1.1;
-  color:var(--text);
-}
-.progress-summary p{
-  margin:6px 0 0;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.35;
-}
-.progress-kpi{
-  text-align:right;
-}
-.progress-kpi b{
-  display:block;
-  font-size:46px;
-  line-height:1;
-  letter-spacing:-.06em;
-  color:var(--text);
-}
-.progress-kpi span{
-  display:block;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:800;
-}
-.progress-list{
-  display:grid;
-  gap:12px;
-  margin-top:18px;
-}
-.progress-item{
-  display:grid;
-  gap:7px;
-}
-.progress-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  font-size:13px;
-  font-weight:800;
-}
-.progress-row span:first-child{color:var(--text)}
-.progress-row span:last-child{color:var(--muted)}
-.progress-track-xl{
-  height:13px;
-  border-radius:999px;
-  background:rgba(255,255,255,.10);
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-}
-html[data-theme="light"] .progress-track-xl{
-  background:#eadcc9;
-  border-color:#dfd0bd;
-}
-.progress-fill-xl{
-  height:100%;
-  border-radius:999px;
-  width:0%;
-  background:linear-gradient(90deg,#b7781d,#f3d58c);
-  box-shadow:0 0 18px rgba(217,163,60,.25);
-  transition:width .42s cubic-bezier(.2,.8,.2,1);
-}
-.progress-details{
-  display:none;
-  margin-top:18px;
-  padding-top:16px;
-  border-top:1px solid var(--stroke);
-}
-.progress-panel.expanded .progress-details{
-  display:grid;
-  gap:12px;
-  animation:detailsIn .22s ease-out;
-}
-@keyframes detailsIn{
-  from{opacity:0;transform:translateY(-6px)}
-  to{opacity:1;transform:none}
-}
-.detail-grid{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-}
-.detail-cell{
-  padding:12px;
-  border-radius:18px;
-  border:1px solid var(--stroke);
-  background:rgba(255,255,255,.035);
-}
-html[data-theme="light"] .detail-cell{
-  background:#fff8ef;
-}
-.detail-cell b{
-  display:block;
-  font-size:22px;
-  line-height:1;
-  color:var(--text);
-}
-.detail-cell span{
-  display:block;
-  margin-top:6px;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:800;
-}
-.expand-hint{
-  margin-top:12px;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:800;
-}
-.progress-note{
-  margin-top:2px;
-  padding:12px 14px;
-  border-radius:18px;
-  border:1px solid var(--stroke);
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.35;
-  background:rgba(255,255,255,.035);
-}
-html[data-theme="light"] .progress-note{
-  background:#fff8ef;
-}
-.dashboard-empty-chart-fix{
-  display:none!important;
-}
-@media(max-width:980px){
-  .progress-top{
-    grid-template-columns:1fr;
-  }
-  .progress-kpi{
-    text-align:left;
-  }
-  .detail-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+ .app,main{height:auto!important;max-height:none!important;overflow:visible!important}
+ aside{display:none!important}
+ .grid.cols6{grid-template-columns:1fr!important}
+ .metric strong{font-size:46px!important}
+ .progress-master-top{grid-template-columns:1fr}
+ .progress-main-number{text-align:left}
+ .progress-detail-grid{grid-template-columns:repeat(2,1fr)}
 }
 
 </style>
@@ -1399,7 +1124,14 @@ function opts(arr,val){return arr.map(x=>`<option ${x==val?"selected":""}>${esc(
 function multiOpts(arr,vals=[]){return arr.map(x=>`<option value="${x.id}" ${vals.includes(x.id)?"selected":""}>${esc(x.data.name||x.data.title)}</option>`).join("")}
 function statusClass(v){v=String(v||"").toLowerCase();if(v.includes("готов")||v.includes("закреп")||v.includes("ключ")||v.includes("высок"))return"st-ok";if(v.includes("работ")||v.includes("изуч")||v.includes("сред"))return"st-work";if(v.includes("провер")||v.includes("повтор"))return"st-warn";if(v.includes("проср")||v.includes("низк"))return"st-bad";return"st-cold"}
 function status(v,icon){return`<span class="status ${statusClass(v)}">${icon||"●"} ${esc(v||"—")}</span>`}
-function metric(v,l){return`<div class="card"><div class="label">${l}</div><div class="metric">${v}</div></div>`}
+function metric(v,l){
+ let s=String(v),pct=0;
+ if(s.includes("/")){
+   let parts=s.split("/").map(x=>parseFloat(String(x).replace(/[^0-9.]/g,"")));
+   if(parts[1]>0)pct=Math.max(0,Math.min(100,(parts[0]/parts[1])*100));
+ } else if(!isNaN(parseFloat(s))) pct=Math.max(0,Math.min(100,parseFloat(s)));
+ return `<div class="metric"><small>${l}</small><strong>${v}</strong><div class="metric-track"><i style="width:${pct}%"></i></div></div>`;
+}
 function row(type,data,id=uid()){return {id,type,data,updated_at:new Date().toISOString(),dirty:true}}
 function initDefaults(){
  if(db.task.length+db.word.length+db.source.length+db.actor.length>0) return;
@@ -1539,58 +1271,108 @@ function renderSection(id){ if(typeof resetCharts==="function") resetCharts();ch
 function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card"><h3>1. Supabase: подключение</h3><div class="form"><input id="sbUrl" placeholder="Supabase Project URL" value="${escAttr(cfg.url||"")}"><input id="sbAnon" placeholder="Supabase anon public key" value="${escAttr(cfg.anonKey||"")}"><button class="primary" onclick="cfg.url=sbUrl.value.trim();cfg.anonKey=sbAnon.value.trim();localStorage.setItem(CONFIG_KEY,JSON.stringify(cfg));initSupabase();initAuth();alert('Сохранено')">Сохранить подключение</button></div></div><div class="card"><h3>2. Аккаунт</h3><div class="form"><input id="authEmail" placeholder="Email"><input id="authPassword" type="password" placeholder="Пароль"><button class="primary" onclick="signIn()">Войти</button><button onclick="signUp()">Создать аккаунт</button><button class="danger" onclick="signOut()">Выйти</button></div><p class="label">Войди под одной почтой на MacBook и iPhone — база будет общей.</p></div><div class="card"><h3>3. Синхронизация</h3><button class="primary" onclick="pushAll()">Отправить локальное в облако</button> <button onclick="pullAll()">Загрузить из облака</button><p class="label">Если работал офлайн, нажми «Отправить локальное в облако».</p></div></div>`}
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
 
+function renderDashboard(){
+ const today=todayISO();
+ ensureDailyTasks(today);
+ const tasks=db.task.filter(t=>t.data.date===today);
+ const done=tasks.filter(t=>t.data.done).length;
 
+ const words=db.word.length;
+ const sources=db.source.length;
+ const news=db.news.length;
+ const actors=db.actor.length;
+ const products=db.product.length;
 
-
-function pctVal(value,target){
- value=Number(value||0); target=Number(target||0);
- if(!target) return 0;
- return Math.max(0,Math.min(100,Math.round(value/target*100)));
-}
-function progressDashboardHTML(){
- const items=[
-  ["Слова",db.word.length,1000,"Осетинский словарь и языковая база"],
-  ["Источники",db.source.length,100,"СМИ, официальные сайты, каналы, эксперты"],
-  ["Новости",db.news.length,500,"События, факты, повестка"],
-  ["Акторы",db.actor.length,150,"Люди, институты, внешние игроки"],
-  ["Продукты",db.product.length,30,"Дайджесты, записки, публикации"]
+ const goals=[
+  ["Слова",words,1000,"Осетинский словарь и языковая база"],
+  ["Источники",sources,100,"СМИ, официальные сайты, каналы, эксперты"],
+  ["Новости",news,500,"События, факты, повестка"],
+  ["Акторы",actors,150,"Люди, институты, внешние игроки"],
+  ["Продукты",products,30,"Дайджесты, записки, публикации"]
  ];
- const avg=Math.round(items.reduce((s,x)=>s+pctVal(x[1],x[2]),0)/items.length);
- const bars=items.map(([label,val,target])=>{
-   const p=pctVal(val,target);
-   return `<div class="progress-item">
-    <div class="progress-row"><span>${label}</span><span>${val}/${target} · ${p}%</span></div>
-    <div class="progress-track-xl"><div class="progress-fill-xl" style="width:${p}%"></div></div>
+ const pct=(v,t)=> t ? Math.max(0,Math.min(100,Math.round((Number(v)||0)/(Number(t)||1)*100))) : 0;
+ const avg=Math.round(goals.reduce((s,g)=>s+pct(g[1],g[2]),0)/goals.length);
+
+ const metricCard=(label,value,target)=>{
+   const p=target?pct(value,target):0;
+   const display=target?`${value}/${target}`:value;
+   return `<div class="metric"><small>${label}</small><strong>${display}</strong><div class="metric-track"><i style="width:${p}%"></i></div></div>`;
+ };
+
+ const progressRows=goals.map(([label,value,target])=>{
+   const p=pct(value,target);
+   return `<div class="progress-row-block">
+     <div class="progress-row-head"><b>${label}</b><span>${value}/${target} · ${p}%</span></div>
+     <div class="progress-line"><i style="width:${p}%"></i></div>
    </div>`;
  }).join("");
- const cells=items.map(([label,val,target,desc])=>{
-   const p=pctVal(val,target);
-   return `<div class="detail-cell"><b>${p}%</b><span>${label}: ${val}/${target}<br>${desc}</span></div>`;
+
+ const detailCells=goals.map(([label,value,target,desc])=>{
+   const p=pct(value,target);
+   return `<div class="progress-detail-cell"><b>${p}%</b><span>${label}: ${value}/${target}<br>${desc}</span></div>`;
  }).join("");
- const remaining=items.map(([label,val,target])=>`${label}: ${Math.max(0,target-val)}`).join(" · ");
- return `<div class="progress-dashboard">
-   <div class="card progress-panel" onclick="this.classList.toggle('expanded')">
-    <div class="progress-top">
-      <div class="progress-summary">
-        <h4>Прогресс системы</h4>
-        <p>Насколько заполнена твоя аналитическая база по Южной Осетии: язык, источники, новости, акторы и готовые продукты.</p>
-      </div>
-      <div class="progress-kpi"><b>${avg}%</b><span>общий прогресс</span></div>
-    </div>
-    <div class="progress-list">${bars}</div>
-    <div class="expand-hint">Нажми на карточку, чтобы раскрыть подробности.</div>
-    <div class="progress-details">
-      <div class="detail-grid">${cells}</div>
-      <div class="progress-note">Осталось до целевого объёма: ${remaining}.</div>
-    </div>
+
+ const remaining=goals.map(([label,value,target])=>`${label}: ${Math.max(0,target-value)}`).join(" · ");
+
+ dashboard.innerHTML=`
+   <div class="grid cols6">
+     ${metricCard("Задачи",done,tasks.length||7)}
+     ${metricCard("Слова",words,10)}
+     ${metricCard("Новости",news,3)}
+     ${metricCard("Источники",sources,100)}
+     ${metricCard("Акторы",actors,150)}
+     ${metricCard("Продукты",products,30)}
    </div>
- </div>`;
+
+   <div class="grid cols2" style="margin-top:14px">
+     <div class="card">
+       <h3 style="margin-top:0">Режим 60 минут</h3>
+       <p>📚 15 мин — язык</p>
+       <p>📰 20 мин — новости</p>
+       <p>🧠 20 мин — акторы/аналитика</p>
+       <p>◇ 5 мин — самопроверка</p>
+     </div>
+     <div class="card">
+       <h3 style="margin-top:0">Сигналы</h3>
+       <p><span class="status">ӕ В работе</span> Слова: ${words}/10</p>
+       <p><span class="status">📰 В работе</span> Новости: ${news}/3</p>
+       <p><span class="status">◇ В работе</span> ${db.exam.length?"Есть самопроверка":"Нет самопроверки"}</p>
+       <button class="primary" onclick="closeDay()">Закрыть день</button>
+     </div>
+   </div>
+
+   <h3>Прогресс системы</h3>
+   <div class="card progress-master" onclick="this.classList.toggle('expanded')">
+     <div class="progress-master-top">
+       <div>
+         <h3>База аналитика по Южной Осетии</h3>
+         <p>Язык, источники, новости, акторы и готовые продукты. Нажми на карточку, чтобы раскрыть детали.</p>
+       </div>
+       <div class="progress-main-number">
+         <b>${avg}%</b>
+         <span>общий прогресс</span>
+       </div>
+     </div>
+     <div class="progress-bars">${progressRows}</div>
+     <div class="progress-hidden">
+       <div class="progress-detail-grid">${detailCells}</div>
+       <div class="progress-note">Осталось до целевого объёма: ${remaining}.</div>
+     </div>
+   </div>
+
+   <h3>Быстрые действия</h3>
+   <div class="quick">
+     <button onclick="setPage('plan')">План дня</button>
+     <button onclick="setPage('calendar')">Календарь</button>
+     <button onclick="setPage('exam')">Самопроверка</button>
+     <button onclick="setPage('language')">+ слово</button>
+     <button onclick="setPage('monitoring')">+ новость</button>
+     <button onclick="setPage('actors')">+ актор</button>
+     <button class="primary" onclick="setPage('media')">Дайджест</button>
+   </div>
+ `;
 }
 
-function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Прогресс системы</h3>${progressDashboardHTML()}<h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
- /* progress dashboard: no chart canvas */
- /* progress dashboard: no chart canvas */
-}
 function chartTheme(){
  const light=document.documentElement.getAttribute("data-theme")==="light";
  return light ? {
