@@ -1028,6 +1028,248 @@ html[data-theme="light"] .progress-detail-cell{background:#fff8ef}
  .progress-detail-grid{grid-template-columns:repeat(2,1fr)}
 }
 
+
+/* ---------- 3.5 Layout Fix ---------- */
+.dashboard-stack{
+  display:grid;
+  gap:18px;
+}
+.dashboard-section{
+  display:grid;
+  gap:10px;
+}
+.section-title-clean{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:14px;
+}
+.section-title-clean h3{
+  margin:0;
+  font-size:24px;
+  line-height:1.1;
+  color:var(--text);
+}
+.section-title-clean p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.3;
+}
+.dashboard-metrics{
+  margin:0!important;
+}
+.dashboard-work{
+  margin:0!important;
+}
+.progress-master{
+  cursor:pointer;
+  user-select:none;
+  width:100%!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  padding:24px!important;
+}
+.progress-master:hover{
+  transform:translateY(-2px);
+}
+.progress-master.expanded{
+  border-color:rgba(217,163,60,.48)!important;
+}
+.progress-master-top{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:24px;
+  align-items:center;
+}
+.progress-master-top h3{
+  margin:0;
+  font-size:24px;
+  line-height:1.1;
+  color:var(--text);
+}
+.progress-master-top p{
+  max-width:680px;
+  margin:8px 0 0;
+  color:var(--muted);
+  line-height:1.42;
+  font-size:14px;
+}
+.progress-main-number{
+  min-width:128px;
+  text-align:right;
+}
+.progress-main-number b{
+  display:block;
+  font-size:56px;
+  line-height:.95;
+  letter-spacing:-.07em;
+  color:var(--text);
+}
+.progress-main-number span{
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:850;
+  white-space:nowrap;
+}
+.progress-bars{
+  display:grid;
+  gap:14px;
+  margin-top:22px;
+}
+.progress-row-block{
+  display:grid;
+  gap:8px;
+}
+.progress-row-main{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:16px;
+  align-items:end;
+}
+.progress-row-main b{
+  display:block;
+  color:var(--text);
+  font-size:15px;
+  line-height:1.15;
+}
+.progress-row-main small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.25;
+}
+.progress-row-main span{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850;
+  white-space:nowrap;
+}
+.progress-line{
+  height:11px!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.11)!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.08);
+}
+html[data-theme="light"] .progress-line{
+  background:#eadcc9!important;
+  border-color:#dfd0bd;
+}
+.progress-line i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#b7781d,#f3d58c);
+  box-shadow:0 0 18px rgba(217,163,60,.20);
+}
+.progress-hidden{
+  display:none;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--stroke);
+}
+.progress-master.expanded .progress-hidden{
+  display:grid;
+  gap:14px;
+  animation:detailsIn .22s ease-out;
+}
+.progress-detail-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+}
+.progress-detail-cell{
+  min-height:132px;
+  padding:16px;
+  border-radius:22px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.035);
+  overflow:hidden;
+}
+html[data-theme="light"] .progress-detail-cell{
+  background:#fff8ef;
+}
+.detail-percent{
+  font-size:32px;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:-.06em;
+  color:var(--text);
+}
+.detail-title{
+  margin-top:10px;
+  color:var(--text);
+  font-size:14px;
+  font-weight:900;
+}
+.detail-sub{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:850;
+}
+.progress-detail-cell p{
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.3;
+}
+.progress-note{
+  padding:14px 16px;
+  border-radius:20px;
+  border:1px solid var(--stroke);
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.38;
+  background:rgba(255,255,255,.035);
+}
+html[data-theme="light"] .progress-note{
+  background:#fff8ef;
+}
+.quick-dashboard{
+  justify-content:flex-start!important;
+  gap:10px!important;
+  flex-wrap:wrap!important;
+}
+.quick-dashboard button{
+  min-height:44px;
+  padding:0 18px!important;
+}
+@media(max-width:1180px){
+  .progress-master-top{
+    grid-template-columns:1fr;
+  }
+  .progress-main-number{
+    text-align:left;
+  }
+}
+@media(max-width:980px){
+  .section-title-clean{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+  .progress-master{
+    padding:18px!important;
+  }
+  .progress-master-top h3{
+    font-size:21px;
+  }
+  .progress-main-number b{
+    font-size:48px;
+  }
+  .progress-row-main{
+    grid-template-columns:1fr;
+    gap:4px;
+  }
+  .progress-detail-grid{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1271,6 +1513,7 @@ function renderSection(id){ if(typeof resetCharts==="function") resetCharts();ch
 function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card"><h3>1. Supabase: подключение</h3><div class="form"><input id="sbUrl" placeholder="Supabase Project URL" value="${escAttr(cfg.url||"")}"><input id="sbAnon" placeholder="Supabase anon public key" value="${escAttr(cfg.anonKey||"")}"><button class="primary" onclick="cfg.url=sbUrl.value.trim();cfg.anonKey=sbAnon.value.trim();localStorage.setItem(CONFIG_KEY,JSON.stringify(cfg));initSupabase();initAuth();alert('Сохранено')">Сохранить подключение</button></div></div><div class="card"><h3>2. Аккаунт</h3><div class="form"><input id="authEmail" placeholder="Email"><input id="authPassword" type="password" placeholder="Пароль"><button class="primary" onclick="signIn()">Войти</button><button onclick="signUp()">Создать аккаунт</button><button class="danger" onclick="signOut()">Выйти</button></div><p class="label">Войди под одной почтой на MacBook и iPhone — база будет общей.</p></div><div class="card"><h3>3. Синхронизация</h3><button class="primary" onclick="pushAll()">Отправить локальное в облако</button> <button onclick="pullAll()">Загрузить из облака</button><p class="label">Если работал офлайн, нажми «Отправить локальное в облако».</p></div></div>`}
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
 
+
 function renderDashboard(){
  const today=todayISO();
  ensureDailyTasks(today);
@@ -1286,9 +1529,9 @@ function renderDashboard(){
  const goals=[
   ["Слова",words,1000,"Осетинский словарь и языковая база"],
   ["Источники",sources,100,"СМИ, официальные сайты, каналы, эксперты"],
-  ["Новости",news,500,"События, факты, повестка"],
-  ["Акторы",actors,150,"Люди, институты, внешние игроки"],
-  ["Продукты",products,30,"Дайджесты, записки, публикации"]
+  ["Новости",news,500,"События, факты и повестка"],
+  ["Акторы",actors,150,"Люди, институты и внешние игроки"],
+  ["Продукты",products,30,"Дайджесты, записки и публикации"]
  ];
  const pct=(v,t)=> t ? Math.max(0,Math.min(100,Math.round((Number(v)||0)/(Number(t)||1)*100))) : 0;
  const avg=Math.round(goals.reduce((s,g)=>s+pct(g[1],g[2]),0)/goals.length);
@@ -1299,79 +1542,100 @@ function renderDashboard(){
    return `<div class="metric"><small>${label}</small><strong>${display}</strong><div class="metric-track"><i style="width:${p}%"></i></div></div>`;
  };
 
- const progressRows=goals.map(([label,value,target])=>{
+ const progressRows=goals.map(([label,value,target,desc])=>{
    const p=pct(value,target);
    return `<div class="progress-row-block">
-     <div class="progress-row-head"><b>${label}</b><span>${value}/${target} · ${p}%</span></div>
+     <div class="progress-row-main">
+       <div><b>${label}</b><small>${desc}</small></div>
+       <span>${value}/${target} · ${p}%</span>
+     </div>
      <div class="progress-line"><i style="width:${p}%"></i></div>
    </div>`;
  }).join("");
 
  const detailCells=goals.map(([label,value,target,desc])=>{
    const p=pct(value,target);
-   return `<div class="progress-detail-cell"><b>${p}%</b><span>${label}: ${value}/${target}<br>${desc}</span></div>`;
+   return `<div class="progress-detail-cell">
+     <div class="detail-percent">${p}%</div>
+     <div class="detail-title">${label}</div>
+     <div class="detail-sub">${value}/${target}</div>
+     <p>${desc}</p>
+   </div>`;
  }).join("");
 
  const remaining=goals.map(([label,value,target])=>`${label}: ${Math.max(0,target-value)}`).join(" · ");
 
  dashboard.innerHTML=`
-   <div class="grid cols6">
-     ${metricCard("Задачи",done,tasks.length||7)}
-     ${metricCard("Слова",words,10)}
-     ${metricCard("Новости",news,3)}
-     ${metricCard("Источники",sources,100)}
-     ${metricCard("Акторы",actors,150)}
-     ${metricCard("Продукты",products,30)}
-   </div>
-
-   <div class="grid cols2" style="margin-top:14px">
-     <div class="card">
-       <h3 style="margin-top:0">Режим 60 минут</h3>
-       <p>📚 15 мин — язык</p>
-       <p>📰 20 мин — новости</p>
-       <p>🧠 20 мин — акторы/аналитика</p>
-       <p>◇ 5 мин — самопроверка</p>
+   <div class="dashboard-stack">
+     <div class="grid cols6 dashboard-metrics">
+       ${metricCard("Задачи",done,tasks.length||7)}
+       ${metricCard("Слова",words,10)}
+       ${metricCard("Новости",news,3)}
+       ${metricCard("Источники",sources,100)}
+       ${metricCard("Акторы",actors,150)}
+       ${metricCard("Продукты",products,30)}
      </div>
-     <div class="card">
-       <h3 style="margin-top:0">Сигналы</h3>
-       <p><span class="status">ӕ В работе</span> Слова: ${words}/10</p>
-       <p><span class="status">📰 В работе</span> Новости: ${news}/3</p>
-       <p><span class="status">◇ В работе</span> ${db.exam.length?"Есть самопроверка":"Нет самопроверки"}</p>
-       <button class="primary" onclick="closeDay()">Закрыть день</button>
-     </div>
-   </div>
 
-   <h3>Прогресс системы</h3>
-   <div class="card progress-master" onclick="this.classList.toggle('expanded')">
-     <div class="progress-master-top">
-       <div>
-         <h3>База аналитика по Южной Осетии</h3>
-         <p>Язык, источники, новости, акторы и готовые продукты. Нажми на карточку, чтобы раскрыть детали.</p>
+     <div class="grid cols2 dashboard-work">
+       <div class="card">
+         <h3 style="margin-top:0">Режим 60 минут</h3>
+         <p>📚 15 мин — язык</p>
+         <p>📰 20 мин — новости</p>
+         <p>🧠 20 мин — акторы/аналитика</p>
+         <p>◇ 5 мин — самопроверка</p>
        </div>
-       <div class="progress-main-number">
-         <b>${avg}%</b>
-         <span>общий прогресс</span>
+       <div class="card">
+         <h3 style="margin-top:0">Сигналы</h3>
+         <p><span class="status">ӕ В работе</span> Слова: ${words}/10</p>
+         <p><span class="status">📰 В работе</span> Новости: ${news}/3</p>
+         <p><span class="status">◇ В работе</span> ${db.exam.length?"Есть самопроверка":"Нет самопроверки"}</p>
+         <button class="primary" onclick="closeDay()">Закрыть день</button>
        </div>
      </div>
-     <div class="progress-bars">${progressRows}</div>
-     <div class="progress-hidden">
-       <div class="progress-detail-grid">${detailCells}</div>
-       <div class="progress-note">Осталось до целевого объёма: ${remaining}.</div>
-     </div>
-   </div>
 
-   <h3>Быстрые действия</h3>
-   <div class="quick">
-     <button onclick="setPage('plan')">План дня</button>
-     <button onclick="setPage('calendar')">Календарь</button>
-     <button onclick="setPage('exam')">Самопроверка</button>
-     <button onclick="setPage('language')">+ слово</button>
-     <button onclick="setPage('monitoring')">+ новость</button>
-     <button onclick="setPage('actors')">+ актор</button>
-     <button class="primary" onclick="setPage('media')">Дайджест</button>
+     <section class="dashboard-section">
+       <div class="section-title-clean">
+         <h3>Прогресс системы</h3>
+         <p>Главный показатель развития твоей базы по Южной Осетии.</p>
+       </div>
+       <div class="card progress-master" onclick="this.classList.toggle('expanded')">
+         <div class="progress-master-top">
+           <div>
+             <h3>База аналитика по Южной Осетии</h3>
+             <p>Язык, источники, новости, акторы и готовые продукты. Нажми на карточку, чтобы раскрыть подробности.</p>
+           </div>
+           <div class="progress-main-number">
+             <b>${avg}%</b>
+             <span>общий прогресс</span>
+           </div>
+         </div>
+         <div class="progress-bars">${progressRows}</div>
+         <div class="progress-hidden">
+           <div class="progress-detail-grid">${detailCells}</div>
+           <div class="progress-note">Осталось до целевого объёма: ${remaining}.</div>
+         </div>
+       </div>
+     </section>
+
+     <section class="dashboard-section">
+       <div class="section-title-clean">
+         <h3>Быстрые действия</h3>
+         <p>Переход к основным рабочим разделам.</p>
+       </div>
+       <div class="quick quick-dashboard">
+         <button onclick="setPage('plan')">План дня</button>
+         <button onclick="setPage('calendar')">Календарь</button>
+         <button onclick="setPage('exam')">Самопроверка</button>
+         <button onclick="setPage('language')">+ слово</button>
+         <button onclick="setPage('monitoring')">+ новость</button>
+         <button onclick="setPage('actors')">+ актор</button>
+         <button class="primary" onclick="setPage('media')">Дайджест</button>
+       </div>
+     </section>
    </div>
  `;
 }
+
 
 function chartTheme(){
  const light=document.documentElement.getAttribute("data-theme")==="light";
