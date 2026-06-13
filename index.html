@@ -1270,6 +1270,199 @@ html[data-theme="light"] .progress-note{
   }
 }
 
+
+/* ---------- 3.6 Dashboard Rescue ---------- */
+#dashboardRescue{
+  display:grid;
+  gap:18px;
+}
+.rescue-grid{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(120px,1fr));
+  gap:14px;
+}
+.rescue-metric{
+  min-height:112px;
+  padding:18px;
+  border-radius:24px;
+  border:1px solid var(--stroke);
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035));
+  box-shadow:0 18px 46px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.04);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  overflow:hidden;
+}
+html[data-theme="light"] .rescue-metric{
+  background:linear-gradient(180deg,#fffdf8,#fff6eb);
+  box-shadow:0 18px 46px rgba(80,48,18,.10), inset 0 1px 0 rgba(255,255,255,.72);
+}
+.rescue-metric small{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:800;
+}
+.rescue-metric b{
+  color:var(--text);
+  font-size:36px;
+  line-height:1;
+  letter-spacing:-.055em;
+}
+.rescue-track{
+  height:7px;
+  border-radius:999px;
+  overflow:hidden;
+  background:rgba(255,255,255,.11);
+}
+html[data-theme="light"] .rescue-track{
+  background:#eadcc9;
+}
+.rescue-track i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#b7781d,#f3d58c);
+}
+.rescue-two{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.rescue-card{
+  padding:24px;
+  border-radius:28px;
+  border:1px solid var(--stroke);
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035));
+  box-shadow:0 18px 46px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.04);
+}
+html[data-theme="light"] .rescue-card{
+  background:linear-gradient(180deg,#fffdf8,#fff6eb);
+  box-shadow:0 18px 46px rgba(80,48,18,.10), inset 0 1px 0 rgba(255,255,255,.72);
+}
+.rescue-card h3{
+  margin:0 0 12px;
+  font-size:23px;
+  color:var(--text);
+}
+.rescue-card p{
+  margin:9px 0;
+  color:var(--muted);
+  line-height:1.35;
+}
+.rescue-progress{
+  cursor:pointer;
+}
+.rescue-progress-top{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:20px;
+  align-items:center;
+}
+.rescue-progress-top h3{
+  margin:0;
+  font-size:26px;
+  color:var(--text);
+}
+.rescue-progress-top p{
+  margin:8px 0 0;
+  max-width:720px;
+  color:var(--muted);
+}
+.rescue-big{
+  text-align:right;
+}
+.rescue-big b{
+  display:block;
+  font-size:58px;
+  line-height:.95;
+  color:var(--text);
+  letter-spacing:-.07em;
+}
+.rescue-big span{
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:850;
+}
+.rescue-bars{
+  display:grid;
+  gap:14px;
+  margin-top:22px;
+}
+.rescue-row-head{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:14px;
+  margin-bottom:7px;
+}
+.rescue-row-head b{
+  color:var(--text);
+}
+.rescue-row-head span{
+  color:var(--muted);
+  font-weight:850;
+  white-space:nowrap;
+}
+.rescue-details{
+  display:none;
+  margin-top:20px;
+  padding-top:18px;
+  border-top:1px solid var(--stroke);
+}
+.rescue-progress.expanded .rescue-details{
+  display:grid;
+  gap:14px;
+}
+.rescue-detail-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:12px;
+}
+.rescue-detail{
+  min-height:120px;
+  padding:16px;
+  border-radius:22px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.035);
+}
+html[data-theme="light"] .rescue-detail{
+  background:#fff8ef;
+}
+.rescue-detail b{
+  display:block;
+  color:var(--text);
+  font-size:30px;
+}
+.rescue-detail span{
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  line-height:1.35;
+}
+.rescue-quick{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.rescue-quick button{
+  min-height:44px;
+  padding:0 18px!important;
+}
+@media(max-width:1180px){
+  .rescue-grid{grid-template-columns:repeat(3,1fr)}
+  .rescue-two{grid-template-columns:1fr}
+  .rescue-progress-top{grid-template-columns:1fr}
+  .rescue-big{text-align:left}
+}
+@media(max-width:980px){
+  .rescue-grid{grid-template-columns:1fr}
+  .rescue-metric b{font-size:46px}
+  .rescue-card{padding:18px}
+}
+
 </style>
 </head>
 <body>
@@ -1318,6 +1511,94 @@ document.addEventListener("pointermove",e=>{
  document.body.style.setProperty("--mx",x+"%");
  document.body.style.setProperty("--my",y+"%");
 },{passive:true});
+
+
+function tskPct(v,t){
+ v=Number(v||0); t=Number(t||0);
+ return t ? Math.max(0,Math.min(100,Math.round(v/t*100))) : 0;
+}
+function tskMetric(label,value,target){
+ const p=target?tskPct(value,target):0;
+ const display=target?`${value}/${target}`:value;
+ return `<div class="rescue-metric"><small>${label}</small><b>${display}</b><div class="rescue-track"><i style="width:${p}%"></i></div></div>`;
+}
+function tskDashboardRescueHTML(){
+ const today=todayISO();
+ ensureDailyTasks(today);
+ const tasks=db.task.filter(t=>t.data.date===today);
+ const done=tasks.filter(t=>t.data.done).length;
+ const words=db.word.length, sources=db.source.length, news=db.news.length, actors=db.actor.length, products=db.product.length;
+ const goals=[
+  ["Слова",words,1000,"Осетинский словарь и языковая база"],
+  ["Источники",sources,100,"СМИ, официальные сайты, каналы, эксперты"],
+  ["Новости",news,500,"События, факты и повестка"],
+  ["Акторы",actors,150,"Люди, институты и внешние игроки"],
+  ["Продукты",products,30,"Дайджесты, записки и публикации"]
+ ];
+ const avg=Math.round(goals.reduce((s,g)=>s+tskPct(g[1],g[2]),0)/goals.length);
+ const bars=goals.map(([label,value,target])=>{
+  const p=tskPct(value,target);
+  return `<div><div class="rescue-row-head"><b>${label}</b><span>${value}/${target} · ${p}%</span></div><div class="rescue-track"><i style="width:${p}%"></i></div></div>`;
+ }).join("");
+ const details=goals.map(([label,value,target,desc])=>{
+  const p=tskPct(value,target);
+  return `<div class="rescue-detail"><b>${p}%</b><span>${label}: ${value}/${target}<br>${desc}</span></div>`;
+ }).join("");
+ return `<div id="dashboardRescue">
+  <div class="rescue-grid">
+   ${tskMetric("Задачи",done,tasks.length||7)}
+   ${tskMetric("Слова",words,10)}
+   ${tskMetric("Новости",news,3)}
+   ${tskMetric("Источники",sources,100)}
+   ${tskMetric("Акторы",actors,150)}
+   ${tskMetric("Продукты",products,30)}
+  </div>
+  <div class="rescue-two">
+   <div class="rescue-card">
+    <h3>Режим 60 минут</h3>
+    <p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p>
+   </div>
+   <div class="rescue-card">
+    <h3>Сигналы</h3>
+    <p><span class="status">ӕ В работе</span> Слова: ${words}/10</p>
+    <p><span class="status">📰 В работе</span> Новости: ${news}/3</p>
+    <p><span class="status">◇ В работе</span> ${db.exam.length?"Есть самопроверка":"Нет самопроверки"}</p>
+    <button class="primary" onclick="closeDay()">Закрыть день</button>
+   </div>
+  </div>
+  <div class="rescue-card rescue-progress" onclick="this.classList.toggle('expanded')">
+   <div class="rescue-progress-top">
+    <div><h3>Прогресс системы</h3><p>Насколько заполнена твоя аналитическая база по Южной Осетии. Нажми на карточку, чтобы раскрыть подробности.</p></div>
+    <div class="rescue-big"><b>${avg}%</b><span>общий прогресс</span></div>
+   </div>
+   <div class="rescue-bars">${bars}</div>
+   <div class="rescue-details"><div class="rescue-detail-grid">${details}</div></div>
+  </div>
+  <div class="rescue-card">
+   <h3>Быстрые действия</h3>
+   <div class="rescue-quick">
+    <button onclick="setPage('plan')">План дня</button>
+    <button onclick="setPage('calendar')">Календарь</button>
+    <button onclick="setPage('exam')">Самопроверка</button>
+    <button onclick="setPage('language')">+ слово</button>
+    <button onclick="setPage('monitoring')">+ новость</button>
+    <button onclick="setPage('actors')">+ актор</button>
+    <button class="primary" onclick="setPage('media')">Дайджест</button>
+   </div>
+  </div>
+ </div>`;
+}
+function tskEnsureDashboardRescue(){
+ const active=document.querySelector(".section.active");
+ if(!active || active.id!=="dashboard") return;
+ const hasRescue=document.getElementById("dashboardRescue");
+ const meaningful=dashboard && dashboard.innerText && dashboard.innerText.trim().length>80;
+ if(!hasRescue || !meaningful){
+   dashboard.innerHTML=tskDashboardRescueHTML();
+ }
+}
+document.addEventListener("DOMContentLoaded",()=>setTimeout(tskEnsureDashboardRescue,120));
+setInterval(tskEnsureDashboardRescue,700);
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
