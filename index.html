@@ -702,338 +702,257 @@ html[data-theme="light"] .primary{color:#1d1208!important}
 }
 
 
-/* ---------- 2.9 No-ChartJS Stable Pro UI ---------- */
-html,body{
-  min-height:100%;
-  overflow-x:hidden;
+/* ---------- 3.0 STABLE: unified background, scroll, charts ---------- */
+html, body {
+  overflow-x: hidden;
 }
-body{
-  background:#080504;
+body {
+  min-height: 100vh;
 }
+.app {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+}
+main {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+aside {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding-bottom: 140px !important;
+}
+aside::-webkit-scrollbar,
+main::-webkit-scrollbar {
+  width: 8px;
+}
+aside::-webkit-scrollbar-thumb,
+main::-webkit-scrollbar-thumb {
+  background: rgba(217,163,60,.30);
+  border-radius: 999px;
+}
+
+/* Unified theme backgrounds */
 html[data-theme="dark"] body,
 html[data-theme="dark"] .app,
-html[data-theme="dark"] main{
-  background:
-    radial-gradient(circle at var(--mx,18%) var(--my,8%),rgba(217,163,60,.16),transparent 25%),
-    radial-gradient(circle at 88% 12%,rgba(118,29,15,.30),transparent 33%),
-    radial-gradient(circle at 45% 115%,rgba(217,163,60,.10),transparent 34%),
-    linear-gradient(135deg,#070403 0%,#130704 58%,#050302 100%)!important;
+html[data-theme="dark"] main {
+  background-color: #080504 !important;
+  background-image:
+    radial-gradient(circle at var(--mx,18%) var(--my,10%), rgba(217,163,60,.14), transparent 26%),
+    radial-gradient(circle at 88% 8%, rgba(93,24,14,.32), transparent 34%),
+    radial-gradient(circle at 50% 115%, rgba(217,163,60,.08), transparent 32%),
+    linear-gradient(135deg,#070403 0%,#130704 58%,#050302 100%) !important;
 }
 html[data-theme="light"] body,
 html[data-theme="light"] .app,
-html[data-theme="light"] main{
+html[data-theme="light"] main {
+  background-color: #f4eadc !important;
+  background-image:
+    radial-gradient(circle at var(--mx,18%) var(--my,10%), rgba(201,139,46,.16), transparent 28%),
+    radial-gradient(circle at 88% 4%, rgba(115,73,25,.08), transparent 34%),
+    linear-gradient(135deg,#f4eadc 0%,#fff8ee 54%,#efe0cc 100%) !important;
+  color: #21170f !important;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background:
-    radial-gradient(circle at var(--mx,18%) var(--my,8%),rgba(201,139,46,.16),transparent 26%),
-    radial-gradient(circle at 88% 0%,rgba(115,73,25,.08),transparent 34%),
-    linear-gradient(135deg,#f4eadc 0%,#fff8ee 52%,#efe0cc 100%)!important;
-  color:#21170f!important;
+    linear-gradient(115deg, transparent 0 48%, rgba(217,163,60,.07) 49%, transparent 52%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 1px, transparent 1px 44px);
+  opacity: .55;
+  animation: tskBgFloat 14s ease-in-out infinite alternate;
 }
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
+html[data-theme="light"] body::before {
+  opacity: .28;
   background:
-    linear-gradient(115deg,transparent 0 48%,rgba(217,163,60,.07) 49%,transparent 52%),
-    repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0 1px,transparent 1px 42px);
-  opacity:.55;
-  animation:tskBgDrift 16s ease-in-out infinite alternate;
+    linear-gradient(115deg, transparent 0 48%, rgba(201,139,46,.10) 49%, transparent 52%),
+    repeating-linear-gradient(90deg, rgba(70,45,20,.025) 0 1px, transparent 1px 44px);
 }
-html[data-theme="light"] body::before{
-  opacity:.28;
-  background:
-    linear-gradient(115deg,transparent 0 48%,rgba(201,139,46,.10) 49%,transparent 52%),
-    repeating-linear-gradient(90deg,rgba(70,45,20,.025) 0 1px,transparent 1px 42px);
+@keyframes tskBgFloat {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to { transform: translate3d(0,-12px,0) scale(1.012); }
 }
-@keyframes tskBgDrift{
-  from{transform:translate3d(0,0,0) scale(1)}
-  to{transform:translate3d(0,-12px,0) scale(1.012)}
+
+html[data-theme="light"] aside {
+  background: rgba(244,234,220,.72) !important;
+  border-right: 1px solid #dacbb8 !important;
 }
-.app{
-  height:100vh!important;
-  max-height:100vh!important;
-  overflow:hidden!important;
+html[data-theme="dark"] aside {
+  background: rgba(8,5,4,.66) !important;
+  border-right: 1px solid rgba(255,255,255,.10) !important;
 }
-aside{
-  height:100vh!important;
-  max-height:100vh!important;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  -webkit-overflow-scrolling:touch!important;
-  padding-bottom:120px!important;
+.topbar {
+  background: transparent !important;
+  border-bottom: 1px solid var(--stroke) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
 }
-aside::-webkit-scrollbar{width:8px}
-aside::-webkit-scrollbar-thumb{
-  background:rgba(217,163,60,.28);
-  border-radius:999px;
+html[data-theme="light"] .topbar {
+  background: rgba(244,234,220,.60) !important;
 }
-main{
-  height:100vh!important;
-  max-height:100vh!important;
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-  -webkit-overflow-scrolling:touch!important;
+html[data-theme="dark"] .topbar {
+  background: rgba(8,5,4,.38) !important;
 }
-html[data-theme="light"] aside{
-  background:rgba(244,234,220,.70)!important;
-  border-right:1px solid #dacbb8!important;
+
+/* Clean metric cards */
+.metric {
+  min-height: 112px !important;
+  padding: 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
-html[data-theme="dark"] aside{
-  background:rgba(8,5,4,.66)!important;
-  border-right:1px solid rgba(255,255,255,.10)!important;
+.metric::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 18% 0%, rgba(217,163,60,.13), transparent 38%);
+  pointer-events: none;
 }
-.topbar{
-  background:rgba(0,0,0,0)!important;
-  border-bottom:1px solid var(--stroke)!important;
-  box-shadow:none!important;
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
+.metric::after,
+.metric-progress {
+  display: none !important;
 }
-html[data-theme="light"] .topbar{
-  background:rgba(244,234,220,.54)!important;
+.metric small {
+  position: relative;
+  z-index: 1;
+  display: block !important;
+  color: var(--muted) !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  margin: 0 !important;
 }
-html[data-theme="dark"] .topbar{
-  background:rgba(8,5,4,.34)!important;
+.metric strong {
+  position: relative;
+  z-index: 1;
+  display: block !important;
+  font-size: 36px !important;
+  line-height: 1 !important;
+  letter-spacing: -.055em !important;
+  color: var(--text) !important;
+  white-space: nowrap !important;
 }
-.card,.metric,.task-row,.day,.node{
-  transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+.metric-track {
+  position: relative;
+  z-index: 1;
+  width: 100% !important;
+  height: 6px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  background: rgba(255,255,255,.11) !important;
 }
-.card:hover,.metric:hover{
-  transform:translateY(-1px);
+.metric-track i {
+  display: block !important;
+  height: 100% !important;
+  border-radius: 999px !important;
+  background: linear-gradient(90deg,#b7781d,#f3d58c) !important;
 }
+html[data-theme="light"] .metric-track {
+  background: #eadcc9 !important;
+}
+
 html[data-theme="dark"] .card,
 html[data-theme="dark"] .metric,
 html[data-theme="dark"] .task-row,
-html[data-theme="dark"] .day{
-  background:linear-gradient(135deg,rgba(255,255,255,.078),rgba(255,255,255,.035))!important;
-  border:1px solid rgba(255,255,255,.13)!important;
-  box-shadow:0 20px 60px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04)!important;
+html[data-theme="dark"] .day {
+  background: linear-gradient(135deg,rgba(255,255,255,.078),rgba(255,255,255,.035)) !important;
+  border: 1px solid rgba(255,255,255,.13) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04) !important;
 }
 html[data-theme="light"] .card,
 html[data-theme="light"] .metric,
 html[data-theme="light"] .task-row,
-html[data-theme="light"] .day{
-  background:linear-gradient(180deg,#fffdf8,#fff6eb)!important;
-  border:1px solid #decfbd!important;
-  box-shadow:0 18px 46px rgba(80,48,18,.10), inset 0 1px 0 rgba(255,255,255,.72)!important;
-  color:#21170f!important;
+html[data-theme="light"] .day {
+  background: linear-gradient(180deg,#fffdf8,#fff6eb) !important;
+  border: 1px solid #decfbd !important;
+  box-shadow: 0 18px 46px rgba(80,48,18,.10), inset 0 1px 0 rgba(255,255,255,.72) !important;
+  color: #21170f !important;
 }
-.metric{
-  min-height:112px!important;
-  padding:18px!important;
-  display:flex!important;
-  flex-direction:column!important;
-  justify-content:space-between!important;
-  gap:12px!important;
-  position:relative!important;
-  overflow:hidden!important;
+
+/* Stable Chart.js containers */
+.chart-card,
+#goalChart,
+#contourChart {
+  min-height: 320px !important;
 }
-.metric::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 18% 0%,rgba(217,163,60,.13),transparent 38%);
-  pointer-events:none;
+.chart-card {
+  padding: 18px !important;
 }
-.metric::after,.metric-progress{display:none!important}
-.metric small{
-  position:relative;
-  z-index:1;
-  display:block!important;
-  color:var(--muted)!important;
-  font-size:13px!important;
-  line-height:1.2!important;
-  margin:0!important;
+.card canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 300px !important;
+  max-height: 300px !important;
 }
-.metric strong{
-  position:relative;
-  z-index:1;
-  display:block!important;
-  font-size:36px!important;
-  line-height:1!important;
-  letter-spacing:-.055em!important;
-  color:var(--text)!important;
-  white-space:nowrap!important;
+
+/* Grid stability */
+.grid.cols6 {
+  grid-template-columns: repeat(6, minmax(118px,1fr)) !important;
 }
-.metric-track{
-  position:relative;
-  z-index:1;
-  width:100%!important;
-  height:6px!important;
-  border-radius:999px!important;
-  overflow:hidden!important;
-  background:rgba(255,255,255,.11)!important;
+@media (max-width:1180px) {
+  .grid.cols6 { grid-template-columns: repeat(3,1fr) !important; }
 }
-.metric-track i{
-  display:block!important;
-  height:100%!important;
-  border-radius:999px!important;
-  background:linear-gradient(90deg,#b7781d,#f3d58c)!important;
+
+/* Animation and polish */
+.section.active {
+  animation: tskSectionIn .26s ease-out;
 }
-html[data-theme="light"] .metric-track{background:#eadcc9!important}
-.grid.cols6{grid-template-columns:repeat(6,minmax(118px,1fr))!important}
-@media(max-width:1180px){.grid.cols6{grid-template-columns:repeat(3,1fr)!important}}
-.native-chart-card{
-  min-height:340px!important;
-  padding:18px!important;
+@keyframes tskSectionIn {
+  from { opacity:.65; transform: translateY(8px); }
+  to { opacity:1; transform:none; }
 }
-.native-chart-head{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-  margin-bottom:14px;
+button, .card, .metric, .bottom-btn {
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
-.native-chart-title{
-  margin:0;
-  font-size:15px;
-  font-weight:900;
-  color:var(--text);
+button:active, .bottom-btn:active {
+  transform: scale(.975);
 }
-.native-chart-sub{
-  margin:4px 0 0;
-  color:var(--muted);
-  font-size:12px;
+.card:hover, .metric:hover {
+  transform: translateY(-1px);
 }
-.native-legend{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:flex-end;
-  color:var(--muted);
-  font-size:12px;
-  font-weight:800;
-}
-.legend-dot{
-  width:12px;
-  height:12px;
-  border-radius:4px;
-  display:inline-block;
-  margin-right:5px;
-  vertical-align:-2px;
-}
-.bar-chart{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:14px;
-  height:235px;
-  align-items:end;
-  padding:16px 6px 4px;
-  border-top:1px solid var(--stroke);
-  position:relative;
-}
-.bar-chart::before{
-  content:"";
-  position:absolute;
-  inset:16px 0 36px;
-  background:
-    linear-gradient(to top,transparent 0 24%,rgba(255,255,255,.09) 25%,transparent 26% 49%,rgba(255,255,255,.09) 50%,transparent 51% 74%,rgba(255,255,255,.09) 75%,transparent 76%);
-  pointer-events:none;
-}
-html[data-theme="light"] .bar-chart::before{
-  background:
-    linear-gradient(to top,transparent 0 24%,rgba(80,56,28,.12) 25%,transparent 26% 49%,rgba(80,56,28,.12) 50%,transparent 51% 74%,rgba(80,56,28,.12) 75%,transparent 76%);
-}
-.bar-col{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-end;
-  gap:7px;
-  min-width:0;
-  height:100%;
-}
-.bar-stack{
-  width:100%;
-  height:178px;
-  display:flex;
-  align-items:end;
-  justify-content:center;
-  gap:5px;
-}
-.bar{
-  width:34%;
-  min-width:12px;
-  max-width:26px;
-  border-radius:8px 8px 3px 3px;
-  position:relative;
-  z-index:1;
-}
-.bar.fact{background:linear-gradient(180deg,#f3d58c,#b7781d)}
-.bar.goal{background:rgba(243,213,140,.26);border:1px solid rgba(243,213,140,.44)}
-html[data-theme="light"] .bar.fact{background:linear-gradient(180deg,#d29a39,#8f5f22)}
-html[data-theme="light"] .bar.goal{background:#e4c47a;border:1px solid #d6ad5a}
-.bar-label{
-  font-size:11px;
-  line-height:1.1;
-  color:var(--muted);
-  font-weight:800;
-  max-width:72px;
-  text-align:center;
-  white-space:normal;
-}
-.donut-wrap{
-  display:grid;
-  grid-template-columns:220px 1fr;
-  gap:18px;
-  align-items:center;
-  min-height:240px;
-}
-.native-donut{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  background:conic-gradient(#4fb0ff 0 100%,#ff6f91 0);
-  position:relative;
-  box-shadow:inset 0 0 0 1px var(--stroke),0 18px 40px rgba(0,0,0,.16);
-}
-.native-donut::after{
-  content:"";
-  position:absolute;
-  inset:58px;
-  border-radius:50%;
-  background:var(--panel);
-  border:1px solid var(--stroke);
-}
-html[data-theme="light"] .native-donut::after{background:#fffaf3}
-.donut-list{
-  display:grid;
-  gap:10px;
-}
-.donut-row{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:800;
-}
-.section.active{animation:sectionIn .26s ease-out}
-@keyframes sectionIn{from{opacity:.65;transform:translateY(8px)}to{opacity:1;transform:none}}
-button:active,.bottom-btn:active{transform:scale(.975)}
-@media(max-width:980px){
-  .app{height:auto!important;max-height:none!important;overflow:visible!important}
-  main{height:auto!important;max-height:none!important;overflow:visible!important}
-  aside{display:none!important}
-  .grid.cols6{grid-template-columns:1fr!important}
-  .metric{min-height:112px!important;padding:18px 20px!important}
-  .metric strong{font-size:46px!important}
-  .native-chart-card{min-height:340px!important}
-  .bar-chart{height:245px;gap:10px}
-  .donut-wrap{grid-template-columns:1fr;justify-items:center}
-  .native-donut{width:210px;height:210px}
-  .topbar{
-    background:rgba(8,5,4,.82)!important;
-    backdrop-filter:blur(34px)!important;
-    -webkit-backdrop-filter:blur(34px)!important;
+
+@media (max-width:980px) {
+  .app {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
-  html[data-theme="light"] .topbar{background:rgba(244,234,220,.92)!important}
-  .title h2{font-size:29px!important}
-  .title p{font-size:14px!important}
-  .theme-btn{font-size:12px!important;padding:8px 10px!important}
-  .pill{font-size:12px!important;padding:8px 10px!important}
+  main {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  aside { display: none !important; }
+  .grid.cols6 { grid-template-columns: 1fr !important; }
+  .metric { min-height:112px !important; padding:18px 20px !important; }
+  .metric strong { font-size:46px !important; }
+  .card canvas { height:300px !important; }
+  .topbar {
+    background: rgba(8,5,4,.82) !important;
+    backdrop-filter: blur(34px) !important;
+    -webkit-backdrop-filter: blur(34px) !important;
+  }
+  html[data-theme="light"] .topbar {
+    background: rgba(244,234,220,.92) !important;
+  }
+  .title h2 { font-size:29px !important; }
+  .title p { font-size:14px !important; }
+  .theme-btn { font-size:12px !important; padding:8px 10px !important; }
+  .pill { font-size:12px !important; padding:8px 10px !important; }
 }
 
 </style>
@@ -1077,7 +996,15 @@ button:active,.bottom-btn:active{transform:scale(.975)}
 <div class="mobile-bottom-nav" id="bottomNav"></div>
 <div class="modal" id="modal"><div class="modalbox"><div class="section-title" style="margin-top:0"><h3 id="modalTitle">Добавить</h3><button onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+document.addEventListener("pointermove",e=>{
+ const x=Math.round(e.clientX/window.innerWidth*100);
+ const y=Math.round(e.clientY/window.innerHeight*100);
+ document.body.style.setProperty("--mx",x+"%");
+ document.body.style.setProperty("--my",y+"%");
+},{passive:true});
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
@@ -1124,14 +1051,7 @@ function opts(arr,val){return arr.map(x=>`<option ${x==val?"selected":""}>${esc(
 function multiOpts(arr,vals=[]){return arr.map(x=>`<option value="${x.id}" ${vals.includes(x.id)?"selected":""}>${esc(x.data.name||x.data.title)}</option>`).join("")}
 function statusClass(v){v=String(v||"").toLowerCase();if(v.includes("готов")||v.includes("закреп")||v.includes("ключ")||v.includes("высок"))return"st-ok";if(v.includes("работ")||v.includes("изуч")||v.includes("сред"))return"st-work";if(v.includes("провер")||v.includes("повтор"))return"st-warn";if(v.includes("проср")||v.includes("низк"))return"st-bad";return"st-cold"}
 function status(v,icon){return`<span class="status ${statusClass(v)}">${icon||"●"} ${esc(v||"—")}</span>`}
-function metric(v,l){
- let s=String(v),pct=0;
- if(s.includes("/")){
-   let parts=s.split("/").map(x=>parseFloat(String(x).replace(/[^0-9.]/g,"")));
-   if(parts[1]>0)pct=Math.max(0,Math.min(100,(parts[0]/parts[1])*100));
- } else if(!isNaN(parseFloat(s))) pct=Math.max(0,Math.min(100,parseFloat(s)));
- return `<div class="metric"><small>${l}</small><strong>${v}</strong><div class="metric-track"><i style="width:${pct}%"></i></div></div>`;
-}</div><div class="metric">${v}</div></div>`}
+function metric(v,l){return`<div class="card"><div class="label">${l}</div><div class="metric">${v}</div></div>`}
 function row(type,data,id=uid()){return {id,type,data,updated_at:new Date().toISOString(),dirty:true}}
 function initDefaults(){
  if(db.task.length+db.word.length+db.source.length+db.actor.length>0) return;
@@ -1267,57 +1187,70 @@ function setPage(id){
  renderSection(id);
 }
 function render(){setTheme(localStorage.getItem("tsk_theme")||"dark");renderSection(document.querySelector(".section.active")?.id||"dashboard")}
-function renderSection(id){charts.forEach(c=>c.destroy());charts=[];({dashboard:renderDashboard,plan:renderPlan,calendar:renderCalendar,exam:renderExam,language:renderLanguage,monitoring:renderMonitoring,actors:renderActors,map:renderMap,analysis:renderAnalysis,media:renderMedia,portfolio:renderPortfolio,dataExport:renderExport,setup:renderSetup}[id]||renderDashboard)()}
+function renderSection(id){ if(typeof resetCharts==="function") resetCharts();charts.forEach(c=>c.destroy());charts=[];({dashboard:renderDashboard,plan:renderPlan,calendar:renderCalendar,exam:renderExam,language:renderLanguage,monitoring:renderMonitoring,actors:renderActors,map:renderMap,analysis:renderAnalysis,media:renderMedia,portfolio:renderPortfolio,dataExport:renderExport,setup:renderSetup}[id]||renderDashboard)()}
 function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card"><h3>1. Supabase: подключение</h3><div class="form"><input id="sbUrl" placeholder="Supabase Project URL" value="${escAttr(cfg.url||"")}"><input id="sbAnon" placeholder="Supabase anon public key" value="${escAttr(cfg.anonKey||"")}"><button class="primary" onclick="cfg.url=sbUrl.value.trim();cfg.anonKey=sbAnon.value.trim();localStorage.setItem(CONFIG_KEY,JSON.stringify(cfg));initSupabase();initAuth();alert('Сохранено')">Сохранить подключение</button></div></div><div class="card"><h3>2. Аккаунт</h3><div class="form"><input id="authEmail" placeholder="Email"><input id="authPassword" type="password" placeholder="Пароль"><button class="primary" onclick="signIn()">Войти</button><button onclick="signUp()">Создать аккаунт</button><button class="danger" onclick="signOut()">Выйти</button></div><p class="label">Войди под одной почтой на MacBook и iPhone — база будет общей.</p></div><div class="card"><h3>3. Синхронизация</h3><button class="primary" onclick="pushAll()">Отправить локальное в облако</button> <button onclick="pullAll()">Загрузить из облака</button><p class="label">Если работал офлайн, нажми «Отправить локальное в облако».</p></div></div>`}
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
-
-function nativeChartsHTML(){
- const facts=[db.word.length,db.source.length,db.news.length,db.actor.length,db.product.length];
- const goals=[1000,100,500,150,30];
- const labels=["Слова","Источники","Новости","Акторы","Продукты"];
- const max=Math.max(...goals,1);
- const bars=labels.map((label,i)=>{
-   const fh=Math.max(2,Math.round(facts[i]/max*178));
-   const gh=Math.max(2,Math.round(goals[i]/max*178));
-   return `<div class="bar-col"><div class="bar-stack"><div class="bar fact" title="Факт: ${facts[i]}" style="height:${fh}px"></div><div class="bar goal" title="Цель: ${goals[i]}" style="height:${gh}px"></div></div><div class="bar-label">${label}</div></div>`;
- }).join("");
- const contours=["РЮО","Россия","Грузия","Межд.","Диаспора"];
- const colors=["#4fb0ff","#ff6f91","#ffae52","#ffd166","#56c7c0"];
- const counts=contours.map(c=>db.actor.filter(a=>a.data.contour===c).length);
- const total=Math.max(counts.reduce((a,b)=>a+b,0),1);
- let start=0;
- const segments=counts.map((v,i)=>{
-   const deg=(v/total)*360;
-   const seg=`${colors[i]} ${start}deg ${start+deg}deg`;
-   start+=deg;
-   return seg;
- }).join(",");
- const donutBg=counts.reduce((a,b)=>a+b,0)===0 ? "rgba(255,255,255,.12) 0 360deg" : segments;
- const rows=contours.map((c,i)=>`<div class="donut-row"><span><span class="legend-dot" style="background:${colors[i]}"></span>${c}</span><b>${counts[i]}</b></div>`).join("");
- return `<div class="grid cols2">
-   <div class="card native-chart-card">
-     <div class="native-chart-head"><div><h4 class="native-chart-title">Прогресс базы</h4><p class="native-chart-sub">Факт против цели</p></div><div class="native-legend"><span><i class="legend-dot" style="background:#f3d58c"></i>Факт</span><span><i class="legend-dot" style="background:rgba(243,213,140,.32)"></i>Цель</span></div></div>
-     <div class="bar-chart">${bars}</div>
-   </div>
-   <div class="card native-chart-card">
-     <div class="native-chart-head"><div><h4 class="native-chart-title">Контуры акторов</h4><p class="native-chart-sub">Распределение по направлениям</p></div></div>
-     <div class="donut-wrap"><div class="native-donut" style="background:conic-gradient(${donutBg})"></div><div class="donut-list">${rows}</div></div>
-   </div>
- </div>`;
-}
-document.addEventListener("pointermove",e=>{
- const x=Math.round(e.clientX/window.innerWidth*100);
- const y=Math.round(e.clientY/window.innerHeight*100);
- document.body.style.setProperty("--mx",x+"%");
- document.body.style.setProperty("--my",y+"%");
-},{passive:true});
-
-function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Диаграммы прогресса</h3></div><div class="grid cols2"><div class="card"><canvas id="goalChart"></canvas></div><div class="card"><canvas id="contourChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
+function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Диаграммы прогресса</h3></div><div class="grid cols2"><div class="card chart-card"><canvas id="goalChart"></canvas></div><div class="card chart-card"><canvas id="contourChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
  chartBar("goalChart",["Слова","Источники","Новости","Акторы","Продукты"],[db.word.length,db.source.length,db.news.length,db.actor.length,db.product.length],[1000,100,500,150,30]);
  chartPie("contourChart",["РЮО","Россия","Грузия","Межд.","Диаспора"],["РЮО","Россия","Грузия","Международные организации","Диаспора"].map(c=>db.actor.filter(a=>a.data.contour===c).length));
 }
-function chartBar(id,labels,values,targets){let ctx=document.getElementById(id);charts.push(new Chart(ctx,{type:"bar",data:{labels,datasets:[{label:"Факт",data:values},{label:"Цель",data:targets}]},options:{plugins:{legend:{labels:{color:"#fff7ed"}}},scales:{x:{ticks:{color:"#fff7ed"}},y:{ticks:{color:"#fff7ed"}}}}}))}
-function chartPie(id,labels,values){let ctx=document.getElementById(id);charts.push(new Chart(ctx,{type:"doughnut",data:{labels,datasets:[{data:values}]},options:{plugins:{legend:{labels:{color:"#fff7ed"}}}}}))}
+function chartTheme(){
+ const light=document.documentElement.getAttribute("data-theme")==="light";
+ return light ? {
+   text:"#23170e", grid:"rgba(80,56,28,.18)",
+   fact:"#9f6b28", goal:"#e4c47a",
+   pie:["#2f7fbf","#b64d6a","#d0832d","#b58a2d","#3b9991"],
+   border:"#fffdf8"
+ } : {
+   text:"#fff7ed", grid:"rgba(255,255,255,.14)",
+   fact:"#f3d58c", goal:"rgba(243,213,140,.28)",
+   pie:["#4fb0ff","#ff6f91","#ffae52","#ffd166","#56c7c0"],
+   border:"#15100c"
+ };
+}
+function resetCharts(){
+ if(Array.isArray(charts)){
+   charts.forEach(c=>{try{c.destroy()}catch(e){}});
+   charts=[];
+ }
+}
+function chartBar(id,labels,values,targets){
+ let ctx=document.getElementById(id);
+ if(!ctx || typeof Chart==="undefined") return;
+ const t=chartTheme();
+ charts.push(new Chart(ctx,{
+   type:"bar",
+   data:{labels,datasets:[
+     {label:"Факт",data:values,backgroundColor:t.fact,borderColor:t.fact,borderWidth:1,borderRadius:8},
+     {label:"Цель",data:targets,backgroundColor:t.goal,borderColor:t.goal,borderWidth:1,borderRadius:8}
+   ]},
+   options:{
+     responsive:true,
+     maintainAspectRatio:false,
+     plugins:{legend:{labels:{color:t.text,font:{weight:"800",size:13},boxWidth:30,boxHeight:10,padding:14}}},
+     scales:{
+       x:{ticks:{color:t.text,font:{weight:"800",size:12}},grid:{color:t.grid}},
+       y:{ticks:{color:t.text,font:{weight:"800",size:12}},grid:{color:t.grid}}
+     }
+   }
+ }));
+}
+function chartPie(id,labels,values){
+ let ctx=document.getElementById(id);
+ if(!ctx || typeof Chart==="undefined") return;
+ const t=chartTheme();
+ const safeValues=values.map(v=>v||0.001);
+ charts.push(new Chart(ctx,{
+   type:"doughnut",
+   data:{labels,datasets:[{data:safeValues,backgroundColor:t.pie,borderColor:t.border,borderWidth:3}]},
+   options:{
+     responsive:true,
+     maintainAspectRatio:false,
+     cutout:"58%",
+     plugins:{legend:{labels:{color:t.text,font:{weight:"800",size:13},boxWidth:30,boxHeight:10,padding:14}}}
+   }
+ }));
+}
 function normWord(s){return String(s||"").toLowerCase().replaceAll("æ","ӕ")}function startsWithOsLetter(word,letter){if(letter==="Все")return true;return normWord(word).startsWith(normWord(letter))}function osLetterIndex(word){let w=normWord(word).trim();for(let i=1;i<OS_ALPHABET.length;i++){let l=normWord(OS_ALPHABET[i]).toLowerCase();if(w.startsWith(l))return i}return 999}
 let languageSearchTimer=null;
 function debouncedRenderLanguage(){
