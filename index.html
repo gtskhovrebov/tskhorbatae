@@ -1137,7 +1137,7 @@ html[data-theme="light"] .contour-pill{
 }
 
 
-/* ---------- 3.2 Expandable progress cards ---------- */
+/* ---------- 3.3 Progress Fixed ---------- */
 .progress-dashboard{
   display:grid!important;
   grid-template-columns:1fr!important;
@@ -1146,26 +1146,19 @@ html[data-theme="light"] .contour-pill{
 .progress-panel{
   cursor:pointer;
   user-select:none;
+  min-height:auto!important;
 }
 .progress-panel:hover{
   transform:translateY(-2px);
 }
 .progress-panel.expanded{
   border-color:rgba(217,163,60,.42)!important;
-  box-shadow:0 22px 70px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.06)!important;
-}
-html[data-theme="light"] .progress-panel.expanded{
-  box-shadow:0 22px 64px rgba(80,48,18,.13), inset 0 1px 0 rgba(255,255,255,.78)!important;
 }
 .progress-top{
   display:grid;
   grid-template-columns:1fr auto;
   gap:16px;
   align-items:center;
-}
-.progress-summary{
-  display:grid;
-  gap:8px;
 }
 .progress-summary h4{
   margin:0;
@@ -1174,7 +1167,7 @@ html[data-theme="light"] .progress-panel.expanded{
   color:var(--text);
 }
 .progress-summary p{
-  margin:0;
+  margin:6px 0 0;
   color:var(--muted);
   font-size:13px;
   line-height:1.35;
@@ -1184,7 +1177,7 @@ html[data-theme="light"] .progress-panel.expanded{
 }
 .progress-kpi b{
   display:block;
-  font-size:42px;
+  font-size:46px;
   line-height:1;
   letter-spacing:-.06em;
   color:var(--text);
@@ -1195,6 +1188,44 @@ html[data-theme="light"] .progress-panel.expanded{
   color:var(--muted);
   font-size:12px;
   font-weight:800;
+}
+.progress-list{
+  display:grid;
+  gap:12px;
+  margin-top:18px;
+}
+.progress-item{
+  display:grid;
+  gap:7px;
+}
+.progress-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  font-size:13px;
+  font-weight:800;
+}
+.progress-row span:first-child{color:var(--text)}
+.progress-row span:last-child{color:var(--muted)}
+.progress-track-xl{
+  height:13px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+}
+html[data-theme="light"] .progress-track-xl{
+  background:#eadcc9;
+  border-color:#dfd0bd;
+}
+.progress-fill-xl{
+  height:100%;
+  border-radius:999px;
+  width:0%;
+  background:linear-gradient(90deg,#b7781d,#f3d58c);
+  box-shadow:0 0 18px rgba(217,163,60,.25);
+  transition:width .42s cubic-bezier(.2,.8,.2,1);
 }
 .progress-details{
   display:none;
@@ -1244,8 +1275,21 @@ html[data-theme="light"] .detail-cell{
   font-size:12px;
   font-weight:800;
 }
-.progress-track-xl{
-  margin-top:12px;
+.progress-note{
+  margin-top:2px;
+  padding:12px 14px;
+  border-radius:18px;
+  border:1px solid var(--stroke);
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.35;
+  background:rgba(255,255,255,.035);
+}
+html[data-theme="light"] .progress-note{
+  background:#fff8ef;
+}
+.dashboard-empty-chart-fix{
+  display:none!important;
 }
 @media(max-width:980px){
   .progress-top{
@@ -1496,6 +1540,8 @@ function renderSetup(){setup.innerHTML=`<div class="grid cols2"><div class="card
 function stats(){let today=todayISO();return{wordsToday:db.word.filter(x=>x.data.date===today).length,newsToday:db.news.filter(x=>x.data.date===today).length,tasksToday:db.task.filter(x=>x.data.deadline===today).length,tasksDone:db.task.filter(x=>x.data.deadline===today&&x.data.done).length,audited:db.audit.some(x=>x.data.date===today)}}
 
 
+
+
 function pctVal(value,target){
  value=Number(value||0); target=Number(target||0);
  if(!target) return 0;
@@ -1510,7 +1556,7 @@ function progressDashboardHTML(){
   ["Продукты",db.product.length,30,"Дайджесты, записки, публикации"]
  ];
  const avg=Math.round(items.reduce((s,x)=>s+pctVal(x[1],x[2]),0)/items.length);
- const bars=items.map(([label,val,target,desc])=>{
+ const bars=items.map(([label,val,target])=>{
    const p=pctVal(val,target);
    return `<div class="progress-item">
     <div class="progress-row"><span>${label}</span><span>${val}/${target} · ${p}%</span></div>
@@ -1526,8 +1572,8 @@ function progressDashboardHTML(){
    <div class="card progress-panel" onclick="this.classList.toggle('expanded')">
     <div class="progress-top">
       <div class="progress-summary">
-        <h4>Прогресс базы</h4>
-        <p>Показывает, насколько заполнена твоя аналитическая система по Южной Осетии: язык, источники, новости, акторы и готовые продукты.</p>
+        <h4>Прогресс системы</h4>
+        <p>Насколько заполнена твоя аналитическая база по Южной Осетии: язык, источники, новости, акторы и готовые продукты.</p>
       </div>
       <div class="progress-kpi"><b>${avg}%</b><span>общий прогресс</span></div>
     </div>
@@ -1541,8 +1587,7 @@ function progressDashboardHTML(){
  </div>`;
 }
 
-
-function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Прогресс системы</h3></div><div class="grid cols2"><div class="card chart-card"><canvas id="goalChart"></canvas></div></div><div class="section-title"><h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
+function renderDashboard(){let s=stats();dashboard.innerHTML=`<div class="grid cols6">${metric(s.tasksDone+"/"+s.tasksToday,"Задачи")}${metric(s.wordsToday+"/10","Слова")}${metric(s.newsToday+"/3","Новости")}${metric(db.source.length+"/100","Источники")}${metric(db.actor.length+"/150","Акторы")}${metric(db.product.length,"Продукты")}</div><div class="grid cols2" style="margin-top:14px"><div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div><div class="card"><h3>Сигналы</h3>${s.wordsToday<10?`<p>${status("В работе","æ")} Слова: ${s.wordsToday}/10</p>`:""}${s.newsToday<3?`<p>${status("В работе","📰")} Новости: ${s.newsToday}/3</p>`:""}${!s.audited?`<p>${status("В работе","◇")} Нет самопроверки</p>`:""}<button onclick="openAddAudit()" class="primary">Закрыть день</button></div></div><div class="section-title"><h3>Прогресс системы</h3>${progressDashboardHTML()}<h3>Быстрые действия</h3><div><button onclick="setPage('plan')">План дня</button> <button onclick="setPage('calendar')">Календарь</button> <button onclick="setPage('exam')">Самопроверка</button> <button onclick="openWord()">+ слово</button> <button onclick="openNews()">+ новость</button> <button onclick="openActor()">+ актор</button> <button class="primary" onclick="createDigest()">Дайджест</button></div></div>`;
  /* progress dashboard: no chart canvas */
  /* progress dashboard: no chart canvas */
 }
