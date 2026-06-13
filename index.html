@@ -701,6 +701,46 @@ html[data-theme="light"] .primary{color:#1d1208!important}
   html[data-theme="light"] .metric{background:linear-gradient(180deg,#ffffff,#fff8ef)!important}
 }
 
+
+/* ---------- 2.5 UI 10/10 polish ---------- */
+:root{--ease:cubic-bezier(.2,.8,.2,1)}
+.section.active{animation:tskFadeUp .34s var(--ease)}
+@keyframes tskFadeUp{from{opacity:0;transform:translateY(12px) scale(.995)}to{opacity:1;transform:none}}
+.card,.metric,.task-row,.day,.node,.bottom-btn,.theme-btn,button{transition:transform .22s var(--ease),box-shadow .22s var(--ease),background .22s var(--ease),border-color .22s var(--ease),opacity .22s var(--ease)}
+button:active,.bottom-btn:active,.card:active{transform:scale(.985)}
+.metric{position:relative;isolation:isolate}
+.metric::after{content:"";position:absolute;inset:auto 18px 14px 18px;height:5px;border-radius:999px;background:rgba(255,255,255,.10);overflow:hidden}
+html[data-theme="light"] .metric::after{background:#eadfce}
+.metric-progress{position:absolute;left:18px;right:18px;bottom:14px;height:5px;border-radius:999px;overflow:hidden;z-index:2;background:transparent}
+.metric-progress span{display:block;height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#b7781d,#f3d58c)}
+.task-row.done{animation:tskDone .34s var(--ease)}
+@keyframes tskDone{0%{transform:scale(.985);box-shadow:0 0 0 rgba(117,196,118,0)}55%{box-shadow:0 0 0 5px rgba(117,196,118,.18)}100%{transform:none;box-shadow:none}}
+.chart-card{position:relative}
+.chart-card::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(circle at 50% 0%,rgba(217,163,60,.10),transparent 36%)}
+html[data-theme="light"] .chart-card::before{background:radial-gradient(circle at 50% 0%,rgba(201,139,46,.08),transparent 36%)}
+.mobile-bottom-nav{animation:navRise .35s var(--ease)}
+@keyframes navRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.bottom-btn.active{transform:translateY(-3px)}
+.bottom-btn.active b{filter:drop-shadow(0 4px 10px rgba(201,139,46,.38))}
+html[data-theme="light"] .chart-card,html[data-theme="light"] canvas{color:#21170f!important}
+html[data-theme="light"] .card canvas{filter:none!important}
+.dashboard-hero{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-bottom:14px}
+.daily-ring{width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--ring,0%), rgba(255,255,255,.10) 0);position:relative;box-shadow:0 14px 44px rgba(0,0,0,.18)}
+.daily-ring::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--panel);border:1px solid var(--stroke)}
+.daily-ring b{z-index:1;font-size:22px}
+html[data-theme="light"] .daily-ring::after{background:#fffaf3}
+@media(max-width:980px){
+  .dashboard-hero{grid-template-columns:1fr auto}
+  .metric{min-height:118px!important}
+  .metric::after,.metric-progress{left:20px;right:20px;bottom:16px}
+  .section-title h3{letter-spacing:-.025em}
+  .card{box-shadow:0 12px 40px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04)!important}
+  html[data-theme="light"] .card,html[data-theme="light"] .metric{box-shadow:0 14px 38px rgba(75,45,12,.09), inset 0 1px 0 rgba(255,255,255,.75)!important}
+  html[data-theme="light"] .title h2{color:#21170f!important}
+  html[data-theme="light"] .title p{color:#6e6258!important}
+  html[data-theme="light"] .mobile-bottom-nav{background:rgba(255,250,243,.88)!important;backdrop-filter:blur(36px)!important;-webkit-backdrop-filter:blur(36px)!important}
+}
+
 </style>
 </head>
 <body>
@@ -750,12 +790,38 @@ html[data-theme="light"] .primary{color:#1d1208!important}
 <script>
 const CONFIG_KEY="tskhorbatae.sync.config";
 const LOCAL_KEY="tskhorbatae.sync.local";
+
+function chartTextColor(){
+ return document.documentElement.getAttribute("data-theme")==="light" ? "#21170f" : "#fff7ed";
+}
+function chartGridColor(){
+ return document.documentElement.getAttribute("data-theme")==="light" ? "rgba(80,56,28,.16)" : "rgba(255,255,255,.10)";
+}
+function applyChartTheme(){
+ if(typeof Chart==="undefined") return;
+ Chart.defaults.color=chartTextColor();
+ Chart.defaults.borderColor=chartGridColor();
+}
+function chartOptions(){
+ const c=chartTextColor(), g=chartGridColor();
+ return {responsive:true,maintainAspectRatio:false,
+ plugins:{legend:{labels:{color:c,font:{weight:"700",size:13},boxWidth:34,boxHeight:10,padding:14}}},
+ scales:{x:{ticks:{color:c,font:{weight:"700"}},grid:{color:g}},y:{ticks:{color:c,font:{weight:"700"}},grid:{color:g}}}};
+}
+function doughnutOptions(){
+ const c=chartTextColor();
+ return {responsive:true,maintainAspectRatio:false,cutout:"58%",
+ plugins:{legend:{labels:{color:c,font:{weight:"700",size:13},boxWidth:34,boxHeight:10,padding:14}}}};
+}
+
 function setTheme(t){
  document.documentElement.setAttribute("data-theme",t);
  localStorage.setItem("tsk_theme",t);
  const d=document.getElementById("themeDarkBtn");
  const l=document.getElementById("themeLightBtn");
  if(d&&l){d.classList.toggle("active",t==="dark");l.classList.toggle("active",t==="light");}
+ applyChartTheme();
+ setTimeout(()=>{try{renderSection(document.querySelector(".section.active")?.id||"dashboard")}catch(e){}},30);
 }
 (function(){setTheme(localStorage.getItem("tsk_theme")||"dark");})();
 const OS_ALPHABET=["Все","А","Ӕ","Б","В","Г","Гъ","Д","Дз","Дж","Е","Ё","Ж","З","И","Й","К","Къ","Л","М","Н","О","П","Пъ","Р","С","Т","Тъ","У","Ф","Х","Хъ","Ц","Цъ","Ч","Чъ","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я"];
