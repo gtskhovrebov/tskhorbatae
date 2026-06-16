@@ -143,6 +143,119 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:980px){
  body{overflow:auto}.app{display:block;height:auto;overflow:visible}aside{display:none}main{height:auto;overflow:visible;padding:22px 18px 110px}.top{margin:-22px -18px 18px;padding:calc(env(safe-area-inset-top) + 18px) 18px 16px}.topbar{display:grid}.title h2{font-size:36px}.cols6{grid-template-columns:1fr}.metric b{font-size:46px}.mobile-nav{position:fixed;left:14px;right:14px;bottom:calc(env(safe-area-inset-bottom) + 12px);display:flex;justify-content:space-around;gap:4px;padding:9px;border:1px solid var(--stroke);border-radius:28px;background:rgba(20,14,10,.80);backdrop-filter:blur(34px);z-index:20}.mobile-nav button{border:0;background:transparent;color:var(--muted);font:800 12px var(--font);padding:8px;border-radius:18px}.mobile-nav button.active{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#1d1208}
 }
+
+/* ---------- 4.1 Visual Progress + premium checks ---------- */
+.check-tile{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.08);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+  position:relative;
+}
+.check-tile::before{
+  content:"";
+  width:22px;
+  height:22px;
+  border-radius:8px;
+  border:2px solid rgba(255,255,255,.42);
+  background:rgba(255,255,255,.05);
+}
+html[data-theme="light"] .check-tile::before{
+  border-color:#bfae98;
+  background:#fffaf3;
+}
+.check-tile.done{
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  border-color:rgba(255,255,255,.22);
+  box-shadow:0 10px 28px rgba(212,154,56,.24), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.check-tile.done::before{
+  content:"✓";
+  width:auto;
+  height:auto;
+  border:0;
+  background:transparent;
+  color:#1d1208;
+  font-size:34px;
+  line-height:1;
+  font-weight:950;
+  transform:translateY(-1px);
+}
+.item.task-item{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  cursor:pointer;
+}
+.item.task-item h4{margin:0 0 4px}
+.item.task-item p{margin:0}
+.visual-progress{
+  margin-top:20px;
+  padding:18px;
+  border-radius:26px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.035);
+}
+html[data-theme="light"] .visual-progress{background:#fff8ef}
+.visual-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:14px;
+  margin-bottom:14px;
+}
+.visual-head b{font-size:15px;color:var(--text)}
+.visual-head span{font-size:12px;color:var(--muted);font-weight:850}
+.visual-scale{
+  height:30px;
+  border-radius:999px;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.025)),
+    repeating-linear-gradient(90deg,transparent 0 9.5%,rgba(255,255,255,.12) 9.5% 10%);
+  border:1px solid var(--stroke);
+  overflow:hidden;
+  position:relative;
+}
+html[data-theme="light"] .visual-scale{
+  background:
+    linear-gradient(90deg,#eadcc9,#fff8ef),
+    repeating-linear-gradient(90deg,transparent 0 9.5%,rgba(80,56,28,.16) 9.5% 10%);
+}
+.visual-scale i{
+  display:block;
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background:linear-gradient(90deg,#9b641f,var(--gold),var(--gold2));
+  box-shadow:0 0 28px rgba(212,154,56,.28);
+  transition:width .45s cubic-bezier(.2,.8,.2,1);
+}
+.visual-labels{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:850;
+}
+.progress{position:relative}
+.progress::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:radial-gradient(circle at 88% 8%,rgba(212,154,56,.14),transparent 34%);
+  pointer-events:none;
+}
+.progress > *{position:relative;z-index:1}
+.line{height:14px!important}
+.metric .track{height:8px!important}
+
 </style>
 </head>
 <body>
@@ -233,6 +346,7 @@ function renderDashboard(){
  ];
  const avg=Math.round(goals.reduce((s,g)=>s+pct(g[1],g[2]),0)/goals.length);
  const bars=goals.map(g=>`<div><div class="row-head"><div><b>${g[0]}</b><small>${g[3]}</small></div><span>${g[1]}/${g[2]} · ${pct(g[1],g[2])}%</span></div><div class="line"><i style="width:${pct(g[1],g[2])}%"></i></div></div>`).join("");
+ const visual=`<div class="visual-progress"><div class="visual-head"><b>Шкала готовности системы</b><span>${avg}% из 100%</span></div><div class="visual-scale"><i style="width:${avg}%"></i></div><div class="visual-labels"><span>старт</span><span>рабочая база</span><span>сильная система</span></div></div>`;
  const details=goals.map(g=>`<div class="detail"><b>${pct(g[1],g[2])}%</b><span>${g[0]}: ${g[1]}/${g[2]}<br>${g[3]}</span></div>`).join("");
  dashboard.innerHTML=`<div class="dashboard">
   <div class="grid cols6">${metric("Задачи",done,db.tasks.length||1)}${metric("Слова",db.words.length,10)}${metric("Новости",db.news.length,3)}${metric("Источники",db.sources.length,100)}${metric("Акторы",db.actors.length,150)}${metric("Продукты",db.products.length,30)}</div>
@@ -240,12 +354,12 @@ function renderDashboard(){
    <div class="card"><h3>Режим 60 минут</h3><p>📚 15 мин — язык</p><p>📰 20 мин — новости</p><p>🧠 20 мин — акторы/аналитика</p><p>◇ 5 мин — самопроверка</p></div>
    <div class="card"><h3>Сигналы</h3><p>Слова: ${db.words.length}/10</p><p>Новости: ${db.news.length}/3</p><p>Акторы: ${db.actors.length}/150</p><button class="primary" onclick="db.tasks.forEach(t=>t.done=true);save();renderDashboard()">Закрыть день</button></div>
   </div>
-  <div class="card progress" onclick="this.classList.toggle('expanded')"><div class="progress-head"><div><h3>Прогресс системы</h3><p>Насколько заполнена твоя аналитическая база по Южной Осетии. Нажми, чтобы раскрыть подробности.</p></div><div class="big"><b>${avg}%</b><span>общий прогресс</span></div></div><div class="bars">${bars}</div><div class="details"><div class="detail-grid">${details}</div></div></div>
+  <div class="card progress" onclick="this.classList.toggle('expanded')"><div class="progress-head"><div><h3>Прогресс системы</h3><p>Насколько заполнена твоя аналитическая база по Южной Осетии. Нажми, чтобы раскрыть подробности.</p></div><div class="big"><b>${avg}%</b><span>общий прогресс</span></div></div><div class="bars">${bars}</div>${visual}<div class="details"><div class="detail-grid">${details}</div></div></div>
   <div class="card"><h3>Быстрые действия</h3><div class="quick"><button onclick="setPage('plan')">План дня</button><button onclick="setPage('language')">+ слово</button><button onclick="setPage('news')">+ новость</button><button onclick="setPage('actors')">+ актор</button><button class="primary" onclick="setPage('news')">Дайджест</button></div></div>
  </div>`;
 }
 function renderPlan(){
- plan.innerHTML=`<div class="card"><h3>План дня</h3><div class="list">${db.tasks.map(t=>`<div class="item"><label><input type="checkbox" ${t.done?"checked":""} onchange="db.tasks.find(x=>x.id==='${t.id}').done=this.checked;save();renderPlan()"> <b>${esc(t.title)}</b></label><p>${esc(t.area)}</p></div>`).join("")}</div><br><div class="form"><input id="taskTitle" placeholder="Новая задача"><button class="primary" onclick="addTask()">+ задача</button></div></div>`;
+ plan.innerHTML=`<div class="card"><h3>План дня</h3><div class="list">${db.tasks.map(t=>`<div class="item task-item" onclick="const x=db.tasks.find(y=>y.id==='${t.id}');x.done=!x.done;save();renderPlan()"><div class="check-tile ${t.done?'done':''}"></div><div><h4>${esc(t.title)}</h4><p>${esc(t.area)}</p></div></div>`).join("")}</div><br><div class="form"><input id="taskTitle" placeholder="Новая задача"><button class="primary" onclick="addTask()">+ задача</button></div></div>`;
 }
 function addTask(){if(!taskTitle.value.trim())return;db.tasks.push({id:uid(),title:taskTitle.value.trim(),done:false,area:"Работа"});save();renderPlan()}
 function renderLanguage(){
